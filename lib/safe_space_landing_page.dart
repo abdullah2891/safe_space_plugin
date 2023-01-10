@@ -8,22 +8,9 @@ class SafeSpaceLandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (param == 2) {
-      Navigator.pop(context);
-      return const SizedBox.shrink();
+      return const LandingPageWidget();
     }
-    return const LandingPageWidget();
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     title: const Text('Safe Space'),
-    //   ),
-    //   body: Center(
-    //     child: ElevatedButton(
-    //       onPressed: () {
-    //         Navigator.pop(context);
-    //       },
-    //       child: const Text('Return'),
-    //     ),
-    //   ),
-    // );
+    Navigator.pop(context);
+    return const SizedBox.shrink();
   }
 }

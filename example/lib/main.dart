@@ -1,48 +1,22 @@
 import 'package:flutter/material.dart';
-
-import 'package:safe_space_plugin/safe_space_landing_page.dart';
+import 'package:get/get.dart';
+import 'package:safe_space_plugin_example/screens/home.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    title: 'Navigation Basics',
-    home: ExampleApp(),
-  ));
+  runApp(const MyApp());
 }
 
-class ExampleApp extends StatelessWidget {
-  const ExampleApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Safe Space Example'),
+    return GetMaterialApp(
+      title: 'TIC TAC TOE',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
-      body: Center(
-          child: Column(
-        children: [
-          ElevatedButton(
-            child: const Text('Launch Safe Space 1'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SafeSpaceLandingPage(param: 1)),
-              );
-            },
-          ),
-          ElevatedButton(
-            child: const Text('Launch Safe Space 2'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SafeSpaceLandingPage(param: 2)),
-              );
-            },
-          )
-        ],
-      )),
+      home: const HomeScreen(),
     );
   }
 }
