@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  geolocator_windows
   safe_space_plugin
   url_launcher_windows
 )

@@ -1,17 +1,19 @@
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter_sms/flutter_sms.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class EmergencyWidget extends StatefulWidget {
   const EmergencyWidget({Key? key}) : super(key: key);
 
   @override
-  _EmergencyWidgetState createState() => _EmergencyWidgetState();
+  EmergencyWidgetState createState() => EmergencyWidgetState();
 }
 
-class _EmergencyWidgetState extends State<EmergencyWidget> {
+class EmergencyWidgetState extends State<EmergencyWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -19,6 +21,37 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
+  }
+
+  void _sendLocation() async {
+    if (!await canSendSMS()) {
+      return;
+    }
+    await Geolocator.requestPermission();
+    // Get the current location
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    // Create a message with the location
+    String message = "My current location is: "
+        "https://www.google.com/maps?q=${position.latitude},${position.longitude}";
+
+    // List of phone numbers to send the message to
+    List<String> recipients = ["4256249297"];
+
+    sendSMS(message: message, recipients: recipients, sendDirect: true);
+  }
+
+  void _callEmergency() async {
+    var url = Uri.parse('tel:911');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+  }
+
+  _dialAFriend() async {
+    const number = '4256249297'; //set the number here
+    FlutterPhoneDirectCaller.callNumber(number);
   }
 
   @override
@@ -29,6 +62,14 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: true,
+        title: Text(
+          'Emergency',
+          style: FlutterFlowTheme.of(context).title2.override(
+                fontFamily: 'Poppins',
+                color: const Color(0xFFFF0404),
+                fontSize: 22,
+              ),
+        ),
         actions: [],
         centerTitle: false,
         elevation: 2,
@@ -39,25 +80,11 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                  child: Text(
-                    'Emergency',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).title1.override(
-                          fontFamily: 'Poppins',
-                          color: Color(0xFFFF0404),
-                        ),
-                  ),
-                ),
-              ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                 child: FFButtonWidget(
                   onPressed: () {
-                    print('Button pressed ...');
+                    _callEmergency();
                   },
                   text: 'Call 911',
                   options: FFButtonOptions(
@@ -68,7 +95,7 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
@@ -77,10 +104,10 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                 child: FFButtonWidget(
                   onPressed: () {
-                    print('Button pressed ...');
+                    _sendLocation();
                   },
                   text: 'Send Location to Contacts',
                   options: FFButtonOptions(
@@ -91,7 +118,7 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
@@ -100,10 +127,10 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                 child: FFButtonWidget(
                   onPressed: () {
-                    print('Button pressed ...');
+                    _dialAFriend();
                   },
                   text: 'Phone a Friend',
                   options: FFButtonOptions(
@@ -114,7 +141,7 @@ class _EmergencyWidgetState extends State<EmergencyWidget> {
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).primaryText,
                         ),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
