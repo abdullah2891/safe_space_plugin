@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1013247766191:android:f07c38b5aa91f0889bae5a",
+        "mobilesdk_app_id": "1:1013247766191:android:a1e20134a94d85759bae5a",
         "android_client_info": {
-          "package_name": "net.mysafespace.safe_space_plugin"
+          "package_name": "net.mysafespace.safe_space_plugin_example"
         }
       },
       "oauth_client": [

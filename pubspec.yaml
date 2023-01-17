@@ -35,7 +35,6 @@ dependencies:
   provider: ^6.0.5
   rxdart: ^0.27.7
   shared_preferences: ^2.0.15
-  sms: ^0.2.4
   sqflite: ^2.2.2
   table_calendar: ^3.0.9
   timeago: ^3.2.2
