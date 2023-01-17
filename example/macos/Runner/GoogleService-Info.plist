@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1013247766191-pf1llkd9trr8v63vbd1ocb7lk814jbc1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1013247766191-pf1llkd9trr8v63vbd1ocb7lk814jbc1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDXNBtH3cdX0FYT6EZlbhcXDrPTbtr9lwU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1013247766191</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>net.mysafespace.safeSpacePluginExample</string>
+	<key>PROJECT_ID</key>
+	<string>mysafespaceapp-d5bc3</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mysafespaceapp-d5bc3.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1013247766191:ios:fb5a01aa649cb5f79bae5a</string>
+</dict>
+</plist>
