@@ -1,4 +1,4 @@
-group 'xyz.asdfglkjh.safe_space_plugin'
+group 'net.mysafespace.safe_space_plugin'
 version '1.0-SNAPSHOT'
 
 buildscript {

@@ -1,4 +1,4 @@
-package xyz.asdfglkjh.safe_space_plugin
+package net.mysafespace.safe_space_plugin
 
 import androidx.annotation.NonNull
 
