@@ -15,6 +15,7 @@ dependencies:
   convex_bottom_bar: ^3.1.0+1
   cupertino_icons: ^1.0.5
   firebase_core: ^2.4.1
+  firebase_database: ^10.0.9
   flutter:
     sdk: flutter
   flutter_animate: ^2.0.1

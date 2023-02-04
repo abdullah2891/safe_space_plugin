@@ -259,11 +259,11 @@ class FlutterFlowRoundedRectSliderTrackShape extends SliderTrackShape
     required RenderBox parentBox,
     required SliderThemeData sliderTheme,
     required Animation<double> enableAnimation,
-    required TextDirection textDirection,
     required Offset thumbCenter,
     bool isDiscrete = false,
     bool isEnabled = false,
-    double additionalActiveTrackHeight = 0,
+    Offset? secondaryOffset,
+    required TextDirection textDirection,
   }) {
     assert(context != null);
     assert(offset != null);
@@ -325,9 +325,9 @@ class FlutterFlowRoundedRectSliderTrackShape extends SliderTrackShape
     context.canvas.drawRRect(
       RRect.fromLTRBAndCorners(
         trackRect.left,
-        trackRect.top - (additionalActiveTrackHeight / 2),
+        trackRect.top /*  - (additionalActiveTrackHeight / 2) */,
         thumbCenter.dx,
-        trackRect.bottom + (additionalActiveTrackHeight / 2),
+        trackRect.bottom /*  + (additionalActiveTrackHeight / 2) */,
         topLeft: activeTrackRadius,
         bottomLeft: activeTrackRadius,
         topRight: trackRadius,
