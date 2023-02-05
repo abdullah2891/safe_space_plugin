@@ -10,7 +10,6 @@ class SafeSpacePlugin {
   }
 
   void launchUI(BuildContext context) {
-    // Navigator.of(context).pushNamed("/LandingPage");
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const LandingPage()));
   }

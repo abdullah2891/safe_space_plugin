@@ -10,7 +10,7 @@ MySafeSpace plugin.
     start ms-settings:developers
     ```
 * Git
-  * Install latest Git from https://git-scm.com/downloads. 
+  * Install latest Git from https://git-scm.com/downloads.
   * Select 'Enable symbolic link' support during install.
 * Java
   * Install JDK from https://www.oracle.com/java/technologies/downloads/#jdk19-windows
@@ -36,11 +36,40 @@ MySafeSpace plugin.
     * open CMD as Admin and run these commands
       ```
       cd C:\Program Files\Android\Android Studio
-      mklink /D "jre" "jbr"      
+      mklink /D "jre" "jbr"
       ```
   * Visual Studio Code
     * Install from https://code.visualstudio.com/Download
     * Open VSCode and install Flutter extension
+
+# Database
+  ```
+  Global:
+      Hotlines:
+          Alias
+          Number
+  User:
+      Friends:
+          Name
+          Number
+      DocumentAbuse:
+          Entries indexed by timestamp
+              Text
+              Optional pic
+              Optional audio
+      GratitudeJournal
+          Entries indexed by timestamp
+              Text x 4
+      SafetyPlan
+          Text
+      PhyicalActivities
+          Entries indexed by timestamp
+              Distance
+              Time
+      MoodTracker
+          Entries indexed by timestamp
+              Emotion
+  ```
 
 This project is a starting point for a Flutter
 [plug-in package](https://flutter.dev/developing-packages/),

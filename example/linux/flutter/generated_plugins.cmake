@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_linux
+  record_linux
   safe_space_plugin
   url_launcher_linux
 )

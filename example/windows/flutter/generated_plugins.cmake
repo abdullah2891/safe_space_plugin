@@ -3,7 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  audioplayers_windows
   geolocator_windows
+  record_windows
   safe_space_plugin
   url_launcher_windows
 )

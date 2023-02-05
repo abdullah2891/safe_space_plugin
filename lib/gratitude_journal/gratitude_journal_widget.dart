@@ -1,3 +1,4 @@
+
 import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -5,14 +6,14 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GratuityJournalWidget extends StatefulWidget {
-  const GratuityJournalWidget({Key? key}) : super(key: key);
+class GratitudeJournalWidget extends StatefulWidget {
+  const GratitudeJournalWidget({Key? key}) : super(key: key);
 
   @override
-  _GratuityJournalWidgetState createState() => _GratuityJournalWidgetState();
+  _GratitudeJournalWidgetState createState() => _GratitudeJournalWidgetState();
 }
 
-class _GratuityJournalWidgetState extends State<GratuityJournalWidget> {
+class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
   DateTimeRange? calendarSelectedDay;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();

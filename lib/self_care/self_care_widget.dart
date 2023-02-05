@@ -1,5 +1,5 @@
 import 'package:safe_space_plugin/five_min_walk/five_min_walk_widget.dart';
-import 'package:safe_space_plugin/gratuity_journal/gratuity_journal_widget.dart';
+import 'package:safe_space_plugin/gratitude_journal/gratitude_journal_widget.dart';
 import 'package:safe_space_plugin/mood_tracker/mood_tracker_widget.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -117,7 +117,7 @@ class _SelfCareWidgetState extends State<SelfCareWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const GratuityJournalWidget()),
+                                      const GratitudeJournalWidget()),
                             );
                           },
                           text: 'Gratitude Journal',

@@ -62,9 +62,9 @@ class AppStateNotifier extends ChangeNotifier {
 //               builder: (context, params) => FiveMinWalkWidget(),
 //             ),
 //             FFRoute(
-//               name: 'GratuityJournal',
-//               path: 'gratuityJournal',
-//               builder: (context, params) => GratuityJournalWidget(),
+//               name: 'GratitudeJournal',
+//               path: 'gratitudeJournal',
+//               builder: (context, params) => GratitudeJournalWidget(),
 //             ),
 //             FFRoute(
 //               name: 'MoodTracker',
