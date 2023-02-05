@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:safe_space_plugin/database/document_abuse_db.dart';
@@ -53,6 +52,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
 
   @override
   void initState() {
+    super.initState();
     if (widget.loadForTimstamp != null) {
       DocumentAbuseEntry.getFromTimestamp(widget.loadForTimstamp!)
           .then((entry) {
@@ -76,7 +76,6 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
         });
       });
     }
-    super.initState();
   }
 
   @override

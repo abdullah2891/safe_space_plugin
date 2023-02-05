@@ -39,7 +39,7 @@ class _ViewEntriesWidgetState extends State<ViewEntriesWidget> {
     final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
 
     DatabaseReference ref =
-        FirebaseDatabase.instance.ref("index/documentAbuseDb/$indexString");
+        FirebaseDatabase.instance.ref("index/${widget.table}/$indexString");
 
     final DataSnapshot entries = await ref.get();
 

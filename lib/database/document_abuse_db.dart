@@ -54,7 +54,7 @@ class DocumentAbuseEntry {
 
     Uint8List? imageData;
     if ((snapshot.value as Map)['image'] as String != '') {
-      audioData = base64Decode((snapshot.value as Map)['image'] as String);
+      imageData = base64Decode((snapshot.value as Map)['image'] as String);
     }
 
     return DocumentAbuseEntry(
