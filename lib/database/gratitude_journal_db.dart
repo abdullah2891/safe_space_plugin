@@ -1,33 +1,56 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class GratitudeJournalDb {
+class GratitudeJournalEntry {
   final String grafulFor;
   final String lookingForwardTo;
   final String yearAgo;
   final String mistake;
 
-  GratitudeJournalDb(
+  GratitudeJournalEntry(
       this.grafulFor, this.lookingForwardTo, this.yearAgo, this.mistake);
 
   void saveEntry() async {
     final timestamp = DateTime.now();
     final indexString =
-        "${timestamp.day} ${timestamp.hour} ${timestamp.minute}";
+        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference ref =
-        FirebaseDatabase.instance.ref("test/gratitudeJournal/$indexString");
+    DatabaseReference dataRef =
+        FirebaseDatabase.instance.ref("data/gratitudeJournalDb/$indexString");
 
-    ref.set({
+    DatabaseReference indexRef = FirebaseDatabase.instance.ref(
+        "index/gratitudeJournalDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
+
+    dataRef.set({
       'grafulFor': grafulFor,
       'lookingForwardTo': lookingForwardTo,
       'yearAgo': yearAgo,
       'mistake': mistake
     });
+    indexRef
+        .push()
+        .set(timestamp.toIso8601String().replaceAll(RegExp(r'\..*'), ''));
   }
 
-  List<GratitudeJournalDb> getEntries() {
-    List<GratitudeJournalDb> entries = [];
+  List<GratitudeJournalEntry> getEntries() {
+    List<GratitudeJournalEntry> entries = [];
 
     return entries;
+  }
+
+  static Future<GratitudeJournalEntry> getFromTimestamp(
+      DateTime timestamp) async {
+    final indexString =
+        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
+
+    DatabaseReference dataRef =
+        FirebaseDatabase.instance.ref("data/gratitudeJournalDb/$indexString");
+
+    final snapshot = await dataRef.get();
+
+    return GratitudeJournalEntry(
+        (snapshot.value as Map)['gratefulFor'] as String,
+        (snapshot.value as Map)['lookingForwardTo'] as String,
+        (snapshot.value as Map)['mistake'] as String,
+        (snapshot.value as Map)['yearAgo'] as String);
   }
 }

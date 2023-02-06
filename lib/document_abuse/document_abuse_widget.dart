@@ -464,7 +464,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ViewEntriesWidget(
+                                  builder: (context) => const ViewEntriesWidget<
+                                          DocumentAbuseWidget>(
                                         table: 'documentAbuseDb',
                                       )),
                             );

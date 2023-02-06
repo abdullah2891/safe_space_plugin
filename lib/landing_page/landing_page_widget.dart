@@ -121,7 +121,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const ContactProfessionalWidget()),
+                                    const ContactAProfessionalWidget()),
                           );
                         },
                         text: 'Contact a Professional',

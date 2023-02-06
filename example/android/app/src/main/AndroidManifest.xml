@@ -37,6 +37,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACTION_IMAGE_CAPTURE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <queries>
         <intent>
             <action android:name="android.intent.action.SENDTO" />

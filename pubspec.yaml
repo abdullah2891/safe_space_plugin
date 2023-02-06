@@ -15,6 +15,7 @@ dependencies:
   cached_network_image: ^3.2.3
   convex_bottom_bar: ^3.1.0+1
   cupertino_icons: ^1.0.5
+  decimal: ^2.3.2
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
   flutter:
@@ -36,10 +37,13 @@ dependencies:
   material: ^1.0.0+2
   page_transition: ^2.0.9
   path_provider: ^2.0.12
+  pedometer: ^3.0.0
+  percent_indicator: ^4.2.2
   plugin_platform_interface: ^2.0.2
   provider: ^6.0.5
   record: ^4.4.4
   rxdart: ^0.27.7
+  sensors: ^2.0.3
   shared_preferences: ^2.0.15
   sqflite: ^2.2.2
   table_calendar: ^3.0.9

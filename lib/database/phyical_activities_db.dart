@@ -1,26 +1,45 @@
 import 'package:firebase_database/firebase_database.dart';
 
-class PhyicalActivitiesDb {
-  final int time;
-  final int steps;
-  final int distance;
+class PhysicalAcvitityDbEntry {
+  final String time;
+  final String steps;
 
-  PhyicalActivitiesDb(this.time, this.steps, this.distance);
+  PhysicalAcvitityDbEntry(this.time, this.steps);
 
   void saveEntry() async {
     final timestamp = DateTime.now();
     final indexString =
-        "${timestamp.day} ${timestamp.hour} ${timestamp.minute}";
+        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference ref =
-        FirebaseDatabase.instance.ref("test/phyicalActivities/$indexString");
+    DatabaseReference dataRef =
+        FirebaseDatabase.instance.ref("data/pedometerDb/$indexString");
 
-    ref.set({'time': time, 'steps': steps, 'distance': distance});
+    DatabaseReference indexRef = FirebaseDatabase.instance.ref(
+        "index/pedometerDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
+
+    dataRef.set({'time': time, 'steps': steps});
+    indexRef
+        .push()
+        .set(timestamp.toIso8601String().replaceAll(RegExp(r'\..*'), ''));
   }
 
-  List<PhyicalActivitiesDb> getEntries() {
-    List<PhyicalActivitiesDb> entries = [];
+  List<PhysicalAcvitityDbEntry> getEntries() {
+    List<PhysicalAcvitityDbEntry> entries = [];
 
     return entries;
+  }
+
+  static Future<PhysicalAcvitityDbEntry> getFromTimestamp(
+      DateTime timestamp) async {
+    final indexString =
+        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
+
+    DatabaseReference dataRef =
+        FirebaseDatabase.instance.ref("data/pedometerDb/$indexString");
+
+    final snapshot = await dataRef.get();
+
+    return PhysicalAcvitityDbEntry((snapshot.value as Map)['time'] as String,
+        (snapshot.value as Map)['steps'] as String);
   }
 }

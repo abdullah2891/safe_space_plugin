@@ -5,7 +5,7 @@ import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-class ViewEntriesWidget extends StatefulWidget {
+class ViewEntriesWidget<Type> extends StatefulWidget {
   final String table;
   const ViewEntriesWidget({Key? key, required this.table}) : super(key: key);
 
@@ -13,7 +13,7 @@ class ViewEntriesWidget extends StatefulWidget {
   _ViewEntriesWidgetState createState() => _ViewEntriesWidgetState();
 }
 
-class _ViewEntriesWidgetState extends State<ViewEntriesWidget> {
+class _ViewEntriesWidgetState extends State<ViewEntriesWidget<Type>> {
   DateTimeRange? calendarSelectedDay;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();

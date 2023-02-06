@@ -185,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  decimal:
+    dependency: transitive
+    description:
+      name: decimal
+      sha256: eece91944f523657c75a3a008a90ec7f7eb3986191153a78570c7d0ac8ef3d01
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
   fake_async:
     dependency: transitive
     description:
@@ -640,6 +648,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
+  pedometer:
+    dependency: transitive
+    description:
+      name: pedometer
+      sha256: "16d7a3df91b9ad72304cf47924dfe9c1abd50304fbf23245edbc89d8429957c1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
+  percent_indicator:
+    dependency: transitive
+    description:
+      name: percent_indicator
+      sha256: cec41f67181fbd5322aa68b355621d1a4eea827426b8eeb613f6cbe195ff7b4a
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.2"
   petitparser:
     dependency: transitive
     description:
@@ -688,6 +712,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.5"
+  rational:
+    dependency: transitive
+    description:
+      name: rational
+      sha256: ba58e9e18df9abde280e8b10051e4bce85091e41e8e7e411b6cde2e738d357cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
   record:
     dependency: transitive
     description:
@@ -759,6 +791,14 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  sensors:
+    dependency: transitive
+    description:
+      name: sensors
+      sha256: "69c10fe94a63dd7c6f5e6557366e5329a713bf6c45d885d95a56642dd8722e35"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   shared_preferences:
     dependency: transitive
     description:
