@@ -6,11 +6,16 @@ import 'dart:async';
 import '../views/view_entries.dart';
 import 'package:safe_space_plugin/database/phyical_activities_db.dart';
 
-class FiveMinWalkWidget extends StatefulWidget {
-  const FiveMinWalkWidget({Key? key}) : super(key: key);
+class FiveMinWalkWidget extends AbstractTimestampedWidget {
+  final DateTime? loadForTimstamp;
+  const FiveMinWalkWidget({Key? key, this.loadForTimstamp}) : super(key: key);
 
   @override
   _FiveMinWalkWidgetState createState() => _FiveMinWalkWidgetState();
+
+  @override
+  Widget clone(DateTime timestamp) =>
+      FiveMinWalkWidget(loadForTimstamp: timestamp);
 }
 
 class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
@@ -200,10 +205,8 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ViewEntriesWidget<
-                                          FiveMinWalkWidget>(
-                                        table: 'pedometerDb',
-                                      )),
+                                  builder: (context) => ViewEntriesWidget(
+                                      table: 'pedometerDb', parent: widget)),
                             );
                           }
                         },

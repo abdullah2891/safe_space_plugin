@@ -12,12 +12,16 @@ import 'package:flutter/material.dart';
 
 import '../views/view_entries.dart';
 
-class DocumentAbuseWidget extends StatefulWidget {
+class DocumentAbuseWidget extends AbstractTimestampedWidget {
   final DateTime? loadForTimstamp;
   const DocumentAbuseWidget({Key? key, this.loadForTimstamp}) : super(key: key);
 
   @override
   _DocumentAbuseWidgetState createState() => _DocumentAbuseWidgetState();
+
+  @override
+  Widget clone(DateTime timestamp) =>
+      DocumentAbuseWidget(loadForTimstamp: timestamp);
 }
 
 class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
@@ -464,9 +468,9 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const ViewEntriesWidget<
-                                          DocumentAbuseWidget>(
+                                  builder: (context) => ViewEntriesWidget(
                                         table: 'documentAbuseDb',
+                                        parent: widget,
                                       )),
                             );
                           }
