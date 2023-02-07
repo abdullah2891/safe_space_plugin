@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_sms/flutter_sms.dart';
+import 'package:safe_space_plugin/database/contact_a_professional_db.dart';
 
 class ContactAProfessionalWidget extends StatefulWidget {
   const ContactAProfessionalWidget({Key? key}) : super(key: key);
@@ -19,10 +20,61 @@ class _ContactAProfessionalWidgetState
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  List<Contact?> contacts = [null, null, null, null];
+
   @override
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Contact.getContacts().then((value) => {
+          setState(() {
+            contacts = value;
+          })
+        });
+  }
+
+  List<Widget> buildList() {
+    List<Widget> childs = [];
+    for (int i = 1; i <= 4; i++) {
+      childs.add(Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+        child: ListTile(
+          title: Text(
+            contacts[i - 1]?.name ?? 'Name $i',
+            style: FlutterFlowTheme.of(context).title3,
+          ),
+          onTap: () async {
+            Contact c1 = await Contact.saveContact(i);
+            setState(() {
+              contacts[i - 1] = c1;
+            });
+          },
+          onLongPress: () {
+            if (contacts[i - 1] != null) {
+              _call(contacts[i - 1]!.phone);
+            }
+          },
+          subtitle: Text(
+            contacts[i - 1]?.phone ?? 'Phone $i',
+            style: FlutterFlowTheme.of(context).subtitle2,
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: Color(0xFF303030),
+            size: 20,
+          ),
+          tileColor: Color(0xFFF5F5F5),
+          dense: false,
+        ),
+      ));
+    }
+    return childs;
   }
 
   void _sendMessage(String number, String message) async {
@@ -36,9 +88,11 @@ class _ContactAProfessionalWidgetState
   }
 
   void _call(String number) async {
-    var url = Uri.parse('tel:$number');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    final Uri _phoneUri = Uri(scheme: "tel", path: number);
+    try {
+      if (await canLaunchUrl(_phoneUri)) await launchUrl(_phoneUri);
+    } catch (error) {
+      throw ("Cannot dial");
     }
   }
 
@@ -167,88 +221,7 @@ class _ContactAProfessionalWidgetState
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                        child: ListTile(
-                          title: Text(
-                            'Name 1',
-                            style: FlutterFlowTheme.of(context).title3,
-                          ),
-                          subtitle: Text(
-                            'Phone Number 1',
-                            style: FlutterFlowTheme.of(context).subtitle2,
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xFF303030),
-                            size: 20,
-                          ),
-                          tileColor: Color(0xFFF5F5F5),
-                          dense: false,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                        child: ListTile(
-                          title: Text(
-                            'Name 2',
-                            style: FlutterFlowTheme.of(context).title3,
-                          ),
-                          subtitle: Text(
-                            'Phone Number 2',
-                            style: FlutterFlowTheme.of(context).subtitle2,
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xFF303030),
-                            size: 20,
-                          ),
-                          tileColor: Color(0xFFF5F5F5),
-                          dense: false,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                        child: ListTile(
-                          title: Text(
-                            'Name 3',
-                            style: FlutterFlowTheme.of(context).title3,
-                          ),
-                          subtitle: Text(
-                            'Phone Number 3',
-                            style: FlutterFlowTheme.of(context).subtitle2,
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xFF303030),
-                            size: 20,
-                          ),
-                          tileColor: Color(0xFFF5F5F5),
-                          dense: false,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                        child: ListTile(
-                          title: Text(
-                            'Name 4',
-                            style: FlutterFlowTheme.of(context).title3,
-                          ),
-                          subtitle: Text(
-                            'Phone Number 4',
-                            style: FlutterFlowTheme.of(context).subtitle2,
-                          ),
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color(0xFF303030),
-                            size: 20,
-                          ),
-                          tileColor: Color(0xFFF5F5F5),
-                          dense: false,
-                        ),
-                      ),
-                    ],
+                    children: buildList(),
                   ),
                 ),
               ],

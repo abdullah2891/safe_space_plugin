@@ -8,6 +8,7 @@ environment:
   flutter: ">=2.5.0"
 
 dependencies:
+  contact_picker_platform_interface: ^4.7.0
   assets_audio_player: ^3.0.6
   assets_audio_player_web: ^3.0.6
   audioplayers: ^3.0.1
@@ -50,6 +51,7 @@ dependencies:
   timeago: ^3.2.2
   url_launcher: ^6.1.7
   webviewx: ^0.2.1
+  fluttercontactpicker: ^4.7.0
 
 dev_dependencies:
   flutter_test:

@@ -1,38 +1,53 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 
-class ContactAProfessionalDbEntry {
-  final String? contact1;
-  final String? contact2;
-  final String? contact3;
-  final String? contact4;
+class Contact {
+  final String name;
+  final String phone;
+  final String? email;
 
-  ContactAProfessionalDbEntry(
-      this.contact1, this.contact2, this.contact3, this.contact4);
+  Contact(this.name, this.phone, this.email);
 
-  void saveEntry() async {
+  static Future<Contact> saveContact(int c) async {
+    final FullContact contact = await FlutterContactPicker.pickFullContact();
+
+    Contact phoneContact = Contact(
+        contact.name?.firstName ?? '',
+        contact.phones.isEmpty ? '' : contact.phones[0].number ?? '',
+        contact.emails.isEmpty ? '' : contact.emails[0].email ?? '');
+
     DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/contactDb/");
+        FirebaseDatabase.instance.ref("data/contactDb/$c");
 
-    dataRef
-        .set({'c1': contact1, 'c2': contact2, 'c3': contact3, 'c4': contact4});
+    dataRef.set({
+      'name': phoneContact.name,
+      'phone': phoneContact.phone,
+      'email': phoneContact.email
+    });
+    return phoneContact;
   }
 
-  List<ContactAProfessionalDbEntry> getEntries() {
-    List<ContactAProfessionalDbEntry> entries = [];
-
-    return entries;
-  }
-
-  static Future<ContactAProfessionalDbEntry> getEntry() async {
+  static Future<Contact> getContact(int c) async {
     DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/contactDb/");
+        FirebaseDatabase.instance.ref("data/contactDb/$c");
 
     final snapshot = await dataRef.get();
 
-    return ContactAProfessionalDbEntry(
-        (snapshot.value as Map)['c1'] as String,
-        (snapshot.value as Map)['c2'] as String,
-        (snapshot.value as Map)['c3'] as String,
-        (snapshot.value as Map)['c4'] as String);
+    return Contact(
+        (snapshot.value as Map)['name'] as String,
+        (snapshot.value as Map)['phone'] as String,
+        (snapshot.value as Map)['email'] as String);
+  }
+
+  static Future<List<Contact?>> getContacts() async {
+    List<Contact?> foo = [];
+    for (int i = 1; i <= 4; i++) {
+      try {
+        foo.add(await getContact(i));
+      } catch (e) {
+        foo.add(null);
+      }
+    }
+    return foo;
   }
 }
