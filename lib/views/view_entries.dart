@@ -1,19 +1,26 @@
 import 'package:firebase_database/firebase_database.dart';
 
-import '../document_abuse/document_abuse_widget.dart';
 import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
 
-class ViewEntriesWidget<Type> extends StatefulWidget {
+abstract class AbstractTimestampedWidget extends StatefulWidget {
+  const AbstractTimestampedWidget({super.key});
+
+  Widget clone(DateTime timestamp);
+}
+
+class ViewEntriesWidget extends StatefulWidget {
   final String table;
-  const ViewEntriesWidget({Key? key, required this.table}) : super(key: key);
+  final AbstractTimestampedWidget parent;
+  const ViewEntriesWidget({Key? key, required this.table, required this.parent})
+      : super(key: key);
 
   @override
   _ViewEntriesWidgetState createState() => _ViewEntriesWidgetState();
 }
 
-class _ViewEntriesWidgetState extends State<ViewEntriesWidget<Type>> {
+class _ViewEntriesWidgetState extends State<ViewEntriesWidget> {
   DateTimeRange? calendarSelectedDay;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -77,9 +84,7 @@ class _ViewEntriesWidgetState extends State<ViewEntriesWidget<Type>> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    DocumentAbuseWidget(loadForTimstamp: entry)),
+            MaterialPageRoute(builder: (context) => widget.parent.clone(entry)),
           );
         },
       ));

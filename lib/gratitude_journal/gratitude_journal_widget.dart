@@ -4,13 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:safe_space_plugin/database/gratitude_journal_db.dart';
 import '../views/view_entries.dart';
 
-class GratitudeJournalWidget extends StatefulWidget {
+class GratitudeJournalWidget extends AbstractTimestampedWidget {
   final DateTime? loadForTimstamp;
   const GratitudeJournalWidget({Key? key, this.loadForTimstamp})
       : super(key: key);
 
   @override
   _GratitudeJournalWidgetState createState() => _GratitudeJournalWidgetState();
+
+  @override
+  Widget clone(DateTime timestamp) =>
+      GratitudeJournalWidget(loadForTimstamp: timestamp);
 }
 
 class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
@@ -441,9 +445,9 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const ViewEntriesWidget<
-                                                  GratitudeJournalWidget>(
+                                              ViewEntriesWidget(
                                                 table: 'gratitudeJournalDb',
+                                                parent: widget,
                                               )),
                                     );
                                   }
