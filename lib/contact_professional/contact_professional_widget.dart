@@ -1,3 +1,5 @@
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -50,7 +52,10 @@ class _ContactAProfessionalWidgetState
             style: FlutterFlowTheme.of(context).title3,
           ),
           onTap: () async {
-            Contact c1 = await Contact.saveContact(i);
+            Contact? c1 = await Contact.saveContact(i);
+            if (c1 == null) {
+              return;
+            }
             setState(() {
               contacts[i - 1] = c1;
             });
@@ -88,9 +93,8 @@ class _ContactAProfessionalWidgetState
   }
 
   void _call(String number) async {
-    final Uri _phoneUri = Uri(scheme: "tel", path: number);
     try {
-      if (await canLaunchUrl(_phoneUri)) await launchUrl(_phoneUri);
+      FlutterPhoneDirectCaller.callNumber(number);
     } catch (error) {
       throw ("Cannot dial");
     }

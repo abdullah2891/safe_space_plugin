@@ -8,8 +8,14 @@ class Contact {
 
   Contact(this.name, this.phone, this.email);
 
-  static Future<Contact> saveContact(int c) async {
-    final FullContact contact = await FlutterContactPicker.pickFullContact();
+  static Future<Contact?> saveContact(int c) async {
+    late FullContact contact;
+    try {
+      contact =
+          await FlutterContactPicker.pickFullContact(askForPermission: true);
+    } catch (e) {
+      return null;
+    }
 
     Contact phoneContact = Contact(
         contact.name?.firstName ?? '',
@@ -40,14 +46,14 @@ class Contact {
   }
 
   static Future<List<Contact?>> getContacts() async {
-    List<Contact?> foo = [];
+    List<Contact?> contacts = [];
     for (int i = 1; i <= 4; i++) {
       try {
-        foo.add(await getContact(i));
+        contacts.add(await getContact(i));
       } catch (e) {
-        foo.add(null);
+        contacts.add(null);
       }
     }
-    return foo;
+    return contacts;
   }
 }
