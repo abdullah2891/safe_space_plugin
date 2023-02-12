@@ -19,8 +19,23 @@ class _ContactAProfessionalWidgetState
   String? dropDownValue;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final TextEditingController textController = TextEditingController();
   List<Contact?> contacts = [null, null, null, null];
+
+  String number = '1-800-787-3224';
+
+  Map<String, String> hotlines = {
+    'Test': '1-425-305-7338',
+    'The National Domestic Violence Hotline': '1-800-787-3224',
+    'The National Dating Abuse Helpline': '1-866-331-9474',
+    'DoD Safe Helpline': '1-877-995-5247',
+    'LGBT National Help Center': '1-888-843-4564',
+    'National Runaway Safeline': '1-773-289-1727',
+    'National Sexual Assault Hotline': '1-800-656-4673',
+    'The Trevor Project': '1-212-695-8650',
+    'VictimConnect': '1-855-484-2846',
+    'National Teen Dating Abuse Helpline': '1-866-331-9474'
+  };
 
   @override
   void dispose() {
@@ -134,8 +149,8 @@ class _ContactAProfessionalWidgetState
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: FlutterFlowDropDown<String>(
-                    options: ['Option 1'],
-                    onChanged: (val) => setState(() => dropDownValue = val),
+                    options: hotlines.keys.map((item) => item).toList(),
+                    onChanged: (val) => setState(() => number = val as String),
                     width: double.infinity,
                     height: 50,
                     textStyle: FlutterFlowTheme.of(context).bodyText1.override(
@@ -152,13 +167,67 @@ class _ContactAProfessionalWidgetState
                     hidesUnderline: true,
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                  child: TextFormField(
+                      controller: textController,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: 'Type a message here',
+                        hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: Color(0xFFDFBDDF),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     FFButtonWidget(
                       onPressed: () {
-                        print('Button pressed ...');
+                        _sendMessage(number, textController.text);
                       },
                       text: 'Text',
                       icon: Icon(
@@ -183,7 +252,7 @@ class _ContactAProfessionalWidgetState
                     ),
                     FFButtonWidget(
                       onPressed: () {
-                        print('Button pressed ...');
+                        _call(number);
                       },
                       text: 'Call',
                       icon: Icon(
