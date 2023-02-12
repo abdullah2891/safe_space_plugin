@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
+import '../utility/auth.dart';
+
 class MoodTrackerDb {
   final String feeling;
 
@@ -10,8 +12,8 @@ class MoodTrackerDb {
     final indexString =
         "${timestamp.day} ${timestamp.hour} ${timestamp.minute}";
 
-    DatabaseReference ref =
-        FirebaseDatabase.instance.ref("test/moodTracker/$indexString");
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
 
     ref.set({'feeling': feeling});
   }
