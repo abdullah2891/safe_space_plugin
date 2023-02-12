@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
+import '../utility/auth.dart';
+
 class GratitudeJournalEntry {
   final String grafulFor;
   final String lookingForwardTo;
@@ -14,11 +16,11 @@ class GratitudeJournalEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/gratitudeJournalDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/gratitudeJournalDb/$indexString");
 
     DatabaseReference indexRef = FirebaseDatabase.instance.ref(
-        "index/gratitudeJournalDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
+        "${Auth().currentUser!.uid}/index/gratitudeJournalDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
 
     dataRef.set({
       'grafulFor': grafulFor,
@@ -42,8 +44,8 @@ class GratitudeJournalEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/gratitudeJournalDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/gratitudeJournalDb/$indexString");
 
     final snapshot = await dataRef.get();
 

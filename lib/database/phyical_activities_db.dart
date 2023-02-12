@@ -1,5 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 
+import '../utility/auth.dart';
+
 class PhysicalAcvitityDbEntry {
   final String time;
   final String steps;
@@ -11,11 +13,11 @@ class PhysicalAcvitityDbEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/pedometerDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/pedometerDb/$indexString");
 
     DatabaseReference indexRef = FirebaseDatabase.instance.ref(
-        "index/pedometerDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
+        "${Auth().currentUser!.uid}/index/pedometerDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
 
     dataRef.set({'time': time, 'steps': steps});
     indexRef
@@ -34,8 +36,8 @@ class PhysicalAcvitityDbEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/pedometerDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/pedometerDb/$indexString");
 
     final snapshot = await dataRef.get();
 

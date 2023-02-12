@@ -1,6 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 
+import '../utility/auth.dart';
+
 class Contact {
   final String name;
   final String phone;
@@ -22,8 +24,8 @@ class Contact {
         contact.phones.isEmpty ? '' : contact.phones[0].number ?? '',
         contact.emails.isEmpty ? '' : contact.emails[0].email ?? '');
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/contactDb/$c");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/contactDb/$c");
 
     dataRef.set({
       'name': phoneContact.name,
@@ -34,8 +36,8 @@ class Contact {
   }
 
   static Future<Contact> getContact(int c) async {
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/contactDb/$c");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/contactDb/$c");
 
     final snapshot = await dataRef.get();
 

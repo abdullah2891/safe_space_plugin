@@ -4,6 +4,8 @@ import 'package:firebase_database/firebase_database.dart';
 
 import 'dart:convert';
 
+import '../utility/auth.dart';
+
 class DocumentAbuseEntry {
   final String text;
   final Uint8List? image;
@@ -15,11 +17,11 @@ class DocumentAbuseEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/documentAbuseDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/documentAbuseDb/$indexString");
 
     DatabaseReference indexRef = FirebaseDatabase.instance.ref(
-        "index/documentAbuseDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
+        "${Auth().currentUser!.uid}/index/documentAbuseDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
 
     dataRef.set({
       'text': text,
@@ -42,8 +44,8 @@ class DocumentAbuseEntry {
     final indexString =
         "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
 
-    DatabaseReference dataRef =
-        FirebaseDatabase.instance.ref("data/documentAbuseDb/$indexString");
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/documentAbuseDb/$indexString");
 
     final snapshot = await dataRef.get();
 

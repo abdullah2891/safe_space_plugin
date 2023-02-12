@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../utility/auth.dart';
+
 class LandingPageWidget extends StatefulWidget {
   const LandingPageWidget({Key? key}) : super(key: key);
 
@@ -255,6 +257,36 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                           );
                         },
                         text: 'Warning Signs',
+                        icon: Icon(
+                          Icons.dangerous,
+                          size: 15,
+                        ),
+                        options: FFButtonOptions(
+                          width: 130,
+                          height: 50,
+                          color: Color(0x7F006B6B),
+                          textStyle:
+                              FlutterFlowTheme.of(context).subtitle2.override(
+                                    fontFamily: 'Montserrat',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          await Auth().signOut();
+                          Navigator.pop(context);
+                        },
+                        text: 'Logout',
                         icon: Icon(
                           Icons.dangerous,
                           size: 15,
