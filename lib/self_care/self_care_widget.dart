@@ -60,7 +60,7 @@ class _SelfCareWidgetState extends State<SelfCareWidget> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: Image.asset(
-                        'assets/images/background.PNG',
+                        'packages/safe_space_plugin/assets/images/background.png',
                       ).image,
                     ),
                   ),
@@ -69,7 +69,7 @@ class _SelfCareWidgetState extends State<SelfCareWidget> {
                       Align(
                         alignment: AlignmentDirectional(0.16, 0.21),
                         child: Image.asset(
-                          'assets/images/gradimage.PNG',
+                          'packages/safe_space_plugin/assets/images/gradimage.png',
                           width: 349,
                           height: 195,
                           fit: BoxFit.cover,

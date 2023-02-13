@@ -9,18 +9,35 @@ class MoodTrackerDb {
 
   void saveEntry() async {
     final timestamp = DateTime.now();
-    final indexString =
-        "${timestamp.day} ${timestamp.hour} ${timestamp.minute}";
+    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
 
-    DatabaseReference ref = FirebaseDatabase.instance
+    DatabaseReference dataRef = FirebaseDatabase.instance
         .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
 
-    ref.set({'feeling': feeling});
+    DatabaseReference indexRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/index/moodTracker/$indexString");
+
+    dataRef.set({'feeling': feeling});
+
+    indexRef
+        .push()
+        .set(timestamp.toIso8601String().replaceAll(RegExp(r'\..*'), ''));
   }
 
   List<MoodTrackerDb> getEntries() {
     List<MoodTrackerDb> entries = [];
 
     return entries;
+  }
+
+  static Future<MoodTrackerDb> getFromTimestamp(DateTime timestamp) async {
+    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
+
+    DatabaseReference dataRef = FirebaseDatabase.instance
+        .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
+
+    final snapshot = await dataRef.get();
+
+    return MoodTrackerDb((snapshot.value as Map)['feeling'] as String);
   }
 }

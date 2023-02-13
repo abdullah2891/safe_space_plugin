@@ -1,36 +1,98 @@
 import '../flutter_flow/flutter_flow_audio_player.dart';
-import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:safe_space_plugin/database/mood_tracker_db.dart';
+import '../views/view_entries.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
-class MoodTrackerWidget extends StatefulWidget {
-  const MoodTrackerWidget({Key? key}) : super(key: key);
+class MoodTrackerWidget extends AbstractTimestampedWidget {
+  final DateTime? loadForTimstamp;
+  const MoodTrackerWidget({Key? key, this.loadForTimstamp}) : super(key: key);
 
   @override
   _MoodTrackerWidgetState createState() => _MoodTrackerWidgetState();
+
+  @override
+  Widget clone(DateTime timestamp) =>
+      MoodTrackerWidget(loadForTimstamp: timestamp);
 }
 
 class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   DateTimeRange? calendarSelectedDay;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  String feeling = 'Happy';
 
+  String audioFilePath = 'packages/safe_space_plugin/assets/audios/happy.m4a';
+  bool _isReadOnly = false;
   @override
   void initState() {
     super.initState();
-    calendarSelectedDay = DateTimeRange(
-      start: DateTime.now().startOfDay,
-      end: DateTime.now().endOfDay,
-    );
+    if (widget.loadForTimstamp != null) {
+      MoodTrackerDb.getFromTimestamp(widget.loadForTimstamp!).then((entry) {
+        feeling = entry.feeling;
+        _isReadOnly = true;
+      });
+    }
+  }
+
+  Future<void> saveFile(String sourcePath, String destinationPath) async {
+    final file = File(sourcePath);
+    final bytes = await file.readAsBytes();
+    final newFile = File(destinationPath);
+    await newFile.create(recursive: true);
+    await newFile.writeAsBytes(bytes);
   }
 
   @override
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
+  }
+
+  void _save() {
+    final entry = MoodTrackerDb(feeling);
+    entry.saveEntry();
+  }
+
+  void _change(String foo) async {
+    setState(() {
+      feeling = foo;
+      audioFilePath = 'packages/safe_space_plugin/assets/audios/$feeling.m4a';
+    });
+  }
+
+  List<Widget> buildList(List<String> foo) {
+    List<Widget> childs = [];
+    for (int i = 0; i <= 2; i++) {
+      Widget w = GestureDetector(
+          onTap: () {
+            _change(foo[i]);
+          },
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            color: Color(0xFF987E98),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Image.asset(
+                  'packages/safe_space_plugin/assets/images/${foo[i]}.png',
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                ),
+                Text(
+                  foo[i],
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ],
+            ),
+          ));
+      childs.add(w);
+    }
+    return childs;
   }
 
   @override
@@ -66,281 +128,121 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: FlutterFlowCalendar(
-                          color: Color(0xFF006B6B),
-                          weekFormat: false,
-                          weekStartsMonday: false,
-                          onChange: (DateTimeRange? newSelectedDate) {
-                            setState(
-                                () => calendarSelectedDay = newSelectedDate);
-                          },
-                          titleStyle: TextStyle(),
-                          dayOfWeekStyle: TextStyle(),
-                          dateStyle: TextStyle(),
-                          selectedDateStyle: TextStyle(),
-                          inactiveDateStyle: TextStyle(),
+                        child: FlutterFlowAudioPlayer(
+                          audio: Audio(
+                            audioFilePath,
+                            metas: Metas(
+                              title: 'Mood Music',
+                            ),
+                          ),
+                          titleTextStyle:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                          playbackDurationTextStyle:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF9D9D9D),
+                                    fontSize: 12,
+                                  ),
+                          fillColor: Color(0xFFEEEEEE),
+                          playbackButtonColor:
+                              FlutterFlowTheme.of(context).primaryColor,
+                          activeTrackColor: Color(0xFF57636C),
+                          elevation: 4,
                         ),
                       ),
-                      FlutterFlowAudioPlayer(
-                        audio: Audio.network(
-                          'https://filesamples.com/samples/audio/mp3/sample3.mp3',
-                          metas: Metas(
-                            id: 'sample3.mp3-e01bi6lz',
-                            title: 'Mood Music',
-                          ),
-                        ),
-                        titleTextStyle:
-                            FlutterFlowTheme.of(context).bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                        playbackDurationTextStyle:
-                            FlutterFlowTheme.of(context).bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Color(0xFF9D9D9D),
-                                  fontSize: 12,
-                                ),
-                        fillColor: Color(0xFFEEEEEE),
-                        playbackButtonColor:
-                            FlutterFlowTheme.of(context).primaryColor,
-                        activeTrackColor: Color(0xFF57636C),
-                        elevation: 4,
-                      ),
                       Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/happy.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Happy',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/sad.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Sad',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/angry.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Angry',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: buildList(['happy', 'sad', 'angry'])),
                       Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/nervous.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Nervous',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/annoyed.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Annoyed',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/goofy.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Goofy',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: buildList(['nervous', 'annoyed', 'goofy'])),
                       Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/surprised.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Surprised',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/disappointed.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Disappointed',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            color: Color(0xFF987E98),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Image.asset(
-                                  'assets/images/tired.png',
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                                Text(
-                                  'Tired',
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: buildList(
+                              ['surprised', 'disappointed', 'tired'])),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'View Entries',
-                          options: FFButtonOptions(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-                            color: Color(0xFF006B6B),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  if (!_isReadOnly) _save();
+                                },
+                                text: 'Save',
+                                icon: Icon(
+                                  Icons.save,
+                                  size: 15,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 130,
+                                  height: 40,
+                                  color: Color(0xFF0B6B65),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                        child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Save Entry',
-                          options: FFButtonOptions(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
-                            color: Color(0xFF006B6B),
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                              child: FFButtonWidget(
+                                onPressed: () {
+                                  if (!_isReadOnly) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ViewEntriesWidget(
+                                                table: 'moodTracker',
+                                                parent: widget,
+                                              )),
+                                    );
+                                  }
+                                },
+                                text: 'View',
+                                icon: Icon(
+                                  Icons.list,
+                                  size: 15,
+                                ),
+                                options: FFButtonOptions(
+                                  width: 130,
+                                  height: 40,
+                                  color: Color(0xFF0B6B65),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          ],
                         ),
                       ),
                     ],

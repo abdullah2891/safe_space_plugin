@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:safe_space_plugin/database/contact_a_professional_db.dart';
 
 class EmergencyWidget extends StatefulWidget {
   const EmergencyWidget({Key? key}) : super(key: key);
@@ -16,11 +17,25 @@ class EmergencyWidget extends StatefulWidget {
 class EmergencyWidgetState extends State<EmergencyWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  List<Contact?> contacts = [null, null, null, null];
+  bool contactsThere = false;
 
   @override
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Contact.getContacts().then((value) => {
+          setState(() {
+            contacts = value;
+            contactsThere = (value[0] == null);
+          })
+        });
   }
 
   void _sendLocation() async {
@@ -37,7 +52,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
         "https://www.google.com/maps?q=${position.latitude},${position.longitude}";
 
     // List of phone numbers to send the message to
-    List<String> recipients = ["4256249297"];
+    List<String> recipients = contacts.map((i) => i!.phone).toList();
 
     sendSMS(message: message, recipients: recipients, sendDirect: true);
   }
@@ -50,7 +65,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
   }
 
   _dialAFriend() async {
-    const number = '4256249297'; //set the number here
+    String number = contacts[0]!.phone; //set the number here
     FlutterPhoneDirectCaller.callNumber(number);
   }
 
