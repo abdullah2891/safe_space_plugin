@@ -25,12 +25,7 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String feeling = 'Happy';
 
-  Future<String> _localPath() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  String audioFilePath = 'assets/audios/Happy.m4a';
+  String audioFilePath = 'packages/safe_space_plugin/assets/audios/happy.m4a';
   bool _isReadOnly = false;
   @override
   void initState() {
@@ -63,18 +58,15 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   }
 
   void _change(String foo) async {
-    String path = await _localPath();
     setState(() {
       feeling = foo;
-      audioFilePath = '$path/audios/$feeling.m4a';
+      audioFilePath = 'packages/safe_space_plugin/assets/audios/$feeling.m4a';
     });
   }
 
   List<Widget> buildList(List<String> foo) {
     List<Widget> childs = [];
     for (int i = 0; i <= 2; i++) {
-      Future<String> path = _localPath();
-
       Widget w = GestureDetector(
           onTap: () {
             _change(foo[i]);
@@ -86,7 +78,7 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Image.asset(
-                  'assets/images/${foo[i]}.png',
+                  'packages/safe_space_plugin/assets/images/${foo[i]}.png',
                   width: 100,
                   height: 100,
                   fit: BoxFit.cover,
@@ -164,16 +156,16 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                       Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: buildList(['Happy', 'Sad', 'Angry'])),
+                          children: buildList(['happy', 'sad', 'angry'])),
                       Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: buildList(['Nervous', 'Annoyed', 'Goofy'])),
+                          children: buildList(['nervous', 'annoyed', 'goofy'])),
                       Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: buildList(
-                              ['Surprised', 'Disappointed', 'Tired'])),
+                              ['surprised', 'disappointed', 'tired'])),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                         child: Row(

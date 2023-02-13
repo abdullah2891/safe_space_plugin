@@ -9,8 +9,7 @@ class MoodTrackerDb {
 
   void saveEntry() async {
     final timestamp = DateTime.now();
-    final indexString =
-        "${timestamp.day} ${timestamp.hour} ${timestamp.minute}";
+    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
 
     DatabaseReference dataRef = FirebaseDatabase.instance
         .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
@@ -32,8 +31,7 @@ class MoodTrackerDb {
   }
 
   static Future<MoodTrackerDb> getFromTimestamp(DateTime timestamp) async {
-    final indexString =
-        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
+    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
 
     DatabaseReference dataRef = FirebaseDatabase.instance
         .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");

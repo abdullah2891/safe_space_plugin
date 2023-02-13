@@ -85,7 +85,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
   @override
   void dispose() {
     _unfocusNode.dispose();
-    textController?.dispose();
+    textController.dispose();
 
     if (audioFilePath != null) {
       File(audioFilePath!).deleteSync();
