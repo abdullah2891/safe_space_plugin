@@ -100,410 +100,415 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xFF987E98),
-      appBar: AppBar(
+        key: scaffoldKey,
         backgroundColor: Color(0xFF987E98),
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Document Abuse',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
-              ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: TextFormField(
-                  controller: textController,
-                  autofocus: true,
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    hintText: 'Enter text here',
-                    hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    errorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    focusedErrorBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4.0),
-                        topRight: Radius.circular(4.0),
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: FlutterFlowTheme.of(context).primaryBtnText,
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                  maxLines: null,
+        appBar: AppBar(
+          backgroundColor: Color(0xFF987E98),
+          automaticallyImplyLeading: true,
+          title: Text(
+            'Document Abuse',
+            style: FlutterFlowTheme.of(context).title2.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0xFFDFBDDF),
-                  child: Padding(
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2,
+        ),
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AudioRecorder(
-                                                onStop: (String path) {
-                                                  setState(() {
-                                                    audioFilePath = path;
-                                                  });
-                                                },
-                                              )),
-                                    );
-                                  },
-                                  text: 'Record',
-                                  icon: const Icon(
-                                    Icons.mic,
-                                    size: 15,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: Color(0xFF0B6B65),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    if (audioFilePath != null) {
-                                      File(audioFilePath!).deleteSync();
-                                      setState(() {
-                                        audioFilePath = null;
-                                      });
-                                    }
-                                  },
-                                  text: 'Clear',
-                                  icon: Icon(
-                                    Icons.delete,
-                                    size: 15,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: Color(0xFF0B6B65),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                            ],
+                    child: TextFormField(
+                      controller: textController,
+                      autofocus: true,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: 'Enter text here',
+                        hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                            child: audioFilePath == null
-                                ? const Text("No Audio")
-                                : FlutterFlowAudioPlayer(
-                                    audio: Audio.file(
-                                      audioFilePath!,
-                                      metas: Metas(
-                                        id: 'sample3.mp3-e01bi6lz',
-                                        title: 'Recorded audio',
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: FlutterFlowTheme.of(context).primaryBtnText,
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                      maxLines: null,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFDFBDDF),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 10),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
+                                    child: FFButtonWidget(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AudioRecorder(
+                                                    onStop: (String path) {
+                                                      setState(() {
+                                                        audioFilePath = path;
+                                                      });
+                                                    },
+                                                  )),
+                                        );
+                                      },
+                                      text: 'Record',
+                                      icon: const Icon(
+                                        Icons.mic,
+                                        size: 15,
                                       ),
-                                    ),
-                                    titleTextStyle: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                    playbackDurationTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .bodyText1
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF0B6B65),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
                                             .override(
                                               fontFamily: 'Poppins',
-                                              color: Color(0xFF9D9D9D),
-                                              fontSize: 12,
+                                              color: Colors.white,
                                             ),
-                                    fillColor: Color(0xFFEEEEEE),
-                                    playbackButtonColor:
-                                        FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                    activeTrackColor: Color(0xFF57636C),
-                                    elevation: 4,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
                                   ),
-                          ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
+                                    child: FFButtonWidget(
+                                      onPressed: () {
+                                        if (audioFilePath != null) {
+                                          File(audioFilePath!).deleteSync();
+                                          setState(() {
+                                            audioFilePath = null;
+                                          });
+                                        }
+                                      },
+                                      text: 'Clear',
+                                      icon: Icon(
+                                        Icons.delete,
+                                        size: 15,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF0B6B65),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 10, 10, 10),
+                                child: audioFilePath == null
+                                    ? const Text("No Audio")
+                                    : FlutterFlowAudioPlayer(
+                                        audio: Audio.file(
+                                          audioFilePath!,
+                                          metas: Metas(
+                                            id: 'sample3.mp3-e01bi6lz',
+                                            title: 'Recorded audio',
+                                          ),
+                                        ),
+                                        titleTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                        playbackDurationTextStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: Color(0xFF9D9D9D),
+                                                  fontSize: 12,
+                                                ),
+                                        fillColor: Color(0xFFEEEEEE),
+                                        playbackButtonColor:
+                                            FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                        activeTrackColor: Color(0xFF57636C),
+                                        elevation: 4,
+                                      ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: Color(0xFFDFBDDF),
-                  child: Padding(
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                    child: Card(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      color: Color(0xFFDFBDDF),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10, 10, 10, 10),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        final XFile? photo =
+                                            await _picker.pickImage(
+                                                source: ImageSource.camera,
+                                                maxWidth: 600,
+                                                maxHeight: 600);
+                                        if (photo != null) {
+                                          setState(() {
+                                            imageFilePath = photo.path;
+                                          });
+                                        }
+                                      },
+                                      text: 'Picture',
+                                      icon: Icon(
+                                        Icons.photo_camera,
+                                        size: 15,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF0B6B65),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        5, 5, 5, 5),
+                                    child: FFButtonWidget(
+                                      onPressed: () {
+                                        if (imageFilePath != null) {
+                                          File(imageFilePath!).deleteSync();
+                                          setState(() {
+                                            imageFilePath = null;
+                                          });
+                                        }
+                                      },
+                                      text: 'Clear',
+                                      icon: Icon(
+                                        Icons.delete,
+                                        size: 15,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF0B6B65),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 10, 10, 10),
+                                child: imageFilePath == null
+                                    ? const Text("No Image")
+                                    : Image.file(
+                                        File(imageFilePath!),
+                                        height: 100,
+                                        fit: BoxFit.contain,
+                                      ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    final XFile? photo =
-                                        await _picker.pickImage(
-                                            source: ImageSource.camera,
-                                            maxWidth: 600,
-                                            maxHeight: 600);
-                                    if (photo != null) {
-                                      setState(() {
-                                        imageFilePath = photo.path;
-                                      });
-                                    }
-                                  },
-                                  text: 'Picture',
-                                  icon: Icon(
-                                    Icons.photo_camera,
-                                    size: 15,
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                          child: FFButtonWidget(
+                            onPressed: () {
+                              if (!_isReadOnly) _saveAndClear();
+                            },
+                            text: 'Save',
+                            icon: Icon(
+                              Icons.save,
+                              size: 15,
+                            ),
+                            options: FFButtonOptions(
+                              width: 130,
+                              height: 40,
+                              color: Color(0xFF0B6B65),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
                                   ),
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: Color(0xFF0B6B65),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
                               ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    if (imageFilePath != null) {
-                                      File(imageFilePath!).deleteSync();
-                                      setState(() {
-                                        imageFilePath = null;
-                                      });
-                                    }
-                                  },
-                                  text: 'Clear',
-                                  icon: Icon(
-                                    Icons.delete,
-                                    size: 15,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: 130,
-                                    height: 40,
-                                    color: Color(0xFF0B6B65),
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
-                            ],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                            child: imageFilePath == null
-                                ? const Text("No Image")
-                                : Image.file(
-                                    File(imageFilePath!),
-                                    height: 100,
-                                    fit: BoxFit.contain,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                          child: FFButtonWidget(
+                            onPressed: () {
+                              if (!_isReadOnly) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ViewEntriesWidget(
+                                            table: 'documentAbuseDb',
+                                            parent: widget,
+                                          )),
+                                );
+                              }
+                            },
+                            text: 'View',
+                            icon: Icon(
+                              Icons.list,
+                              size: 15,
+                            ),
+                            options: FFButtonOptions(
+                              width: 130,
+                              height: 40,
+                              color: Color(0xFF0B6B65),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
                                   ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                      child: FFButtonWidget(
-                        onPressed: () {
-                          if (!_isReadOnly) _saveAndClear();
-                        },
-                        text: 'Save',
-                        icon: Icon(
-                          Icons.save,
-                          size: 15,
-                        ),
-                        options: FFButtonOptions(
-                          width: 130,
-                          height: 40,
-                          color: Color(0xFF0B6B65),
-                          textStyle:
-                              FlutterFlowTheme.of(context).subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                      child: FFButtonWidget(
-                        onPressed: () {
-                          if (!_isReadOnly) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewEntriesWidget(
-                                        table: 'documentAbuseDb',
-                                        parent: widget,
-                                      )),
-                            );
-                          }
-                        },
-                        text: 'View',
-                        icon: Icon(
-                          Icons.list,
-                          size: 15,
-                        ),
-                        options: FFButtonOptions(
-                          width: 130,
-                          height: 40,
-                          color: Color(0xFF0B6B65),
-                          textStyle:
-                              FlutterFlowTheme.of(context).subtitle2.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

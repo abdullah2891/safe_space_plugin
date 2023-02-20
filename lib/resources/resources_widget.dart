@@ -61,68 +61,70 @@ class _ResourcesWidgetState extends State<ResourcesWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xFF987E98),
-      appBar: AppBar(
+        key: scaffoldKey,
         backgroundColor: Color(0xFF987E98),
-        automaticallyImplyLeading: true,
-        title: Text(
-          'Resources',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
-              ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                child: FlutterFlowDropDown<String>(
-                  options: [
-                    'Warning signs',
-                    'Policy in your state',
-                    'Types of sexual violence',
-                    'Safety and prevention',
-                    'Safety for students'
-                  ],
-                  onChanged: (val) =>
-                      setState(() => url = urlGet(val as String)),
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
-                      ),
-                  hintText: 'Please select...',
-                  fillColor: Colors.white,
-                  elevation: 2,
-                  borderColor: Colors.transparent,
-                  borderWidth: 0,
-                  borderRadius: 0,
-                  margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                  hidesUnderline: true,
+        appBar: AppBar(
+          backgroundColor: Color(0xFF987E98),
+          automaticallyImplyLeading: true,
+          title: Text(
+            'Resources',
+            style: FlutterFlowTheme.of(context).title2.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22,
                 ),
-              ),
-              FlutterFlowWebView(
-                url: url,
-                bypass: false,
-                height: MediaQuery.of(context).size.height * 1,
-                verticalScroll: false,
-                horizontalScroll: false,
-              ),
-            ],
           ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2,
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                    child: FlutterFlowDropDown<String>(
+                      options: [
+                        'Warning signs',
+                        'Policy in your state',
+                        'Types of sexual violence',
+                        'Safety and prevention',
+                        'Safety for students'
+                      ],
+                      onChanged: (val) =>
+                          setState(() => url = urlGet(val as String)),
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                      hintText: 'Please select...',
+                      fillColor: Colors.white,
+                      elevation: 2,
+                      borderColor: Colors.transparent,
+                      borderWidth: 0,
+                      borderRadius: 0,
+                      margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                      hidesUnderline: true,
+                    ),
+                  ),
+                  FlutterFlowWebView(
+                    url: url,
+                    bypass: false,
+                    height: MediaQuery.of(context).size.height * 1,
+                    verticalScroll: false,
+                    horizontalScroll: false,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }
