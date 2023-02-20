@@ -1,8 +1,9 @@
 import 'package:safe_space_plugin/contact_professional/contact_professional_widget.dart';
 import 'package:safe_space_plugin/emergency/emergency_widget.dart';
 import 'package:safe_space_plugin/self_care/self_care_widget.dart';
-import 'package:safe_space_plugin/warning_signs/warning_signs_widget.dart';
 
+import 'package:safe_space_plugin/resources/resources_widget.dart';
+import 'package:safe_space_plugin/safety_plan/main/main_widget.dart';
 import '../document_abuse/document_abuse_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -187,7 +188,11 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       child: FFButtonWidget(
                         onPressed: () {
-                          print('Button pressed ...');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainWidget()),
+                          );
                         },
                         text: 'Safety Plan',
                         icon: Icon(
@@ -252,8 +257,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const WarningSignsWidget()),
+                                builder: (context) => const ResourcesWidget()),
                           );
                         },
                         text: 'Warning Signs',
