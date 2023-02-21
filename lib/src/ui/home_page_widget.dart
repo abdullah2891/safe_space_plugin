@@ -49,7 +49,7 @@
 //                       child: ClipRRect(
 //                         borderRadius: BorderRadius.circular(10),
 //                         child: Image.asset(
-//                           'packages/safe_space_plugin/assets/images/safespace_banner.png',
+//                           'packages/safe_space_plugin/assets/images/safespace_banner.jpg',
 //                           width: 100,
 //                           height: MediaQuery.of(context).size.height * 0.15,
 //                           fit: BoxFit.fitWidth,

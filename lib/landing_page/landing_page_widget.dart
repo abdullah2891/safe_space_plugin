@@ -80,9 +80,9 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
-                          'packages/safe_space_plugin/assets/images/safespace_banner.png',
+                          'packages/safe_space_plugin/assets/images/safespace_banner.jpg',
                           width: 100,
-                          height: MediaQuery.of(context).size.height * 0.15,
+                          height: MediaQuery.of(context).size.height * 0.25,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
@@ -262,7 +262,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                         },
                         text: 'Warning Signs',
                         icon: Icon(
-                          Icons.dangerous,
+                          Icons.warning_rounded,
                           size: 15,
                         ),
                         options: FFButtonOptions(
@@ -292,7 +292,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                         },
                         text: 'Logout',
                         icon: Icon(
-                          Icons.dangerous,
+                          Icons.logout,
                           size: 15,
                         ),
                         options: FFButtonOptions(
