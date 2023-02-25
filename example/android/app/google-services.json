@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1013247766191",
+    "firebase_url": "https://mysafespaceapp-d5bc3-default-rtdb.firebaseio.com",
     "project_id": "mysafespaceapp-d5bc3",
     "storage_bucket": "mysafespaceapp-d5bc3.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "1013247766191-nc24lua724a33bidvfreloaj2db0ohrq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1013247766191-pf1llkd9trr8v63vbd1ocb7lk814jbc1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.mysafespace.safeSpacePluginExample"
+              }
             }
           ]
         }

@@ -52,7 +52,10 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
         "https://www.google.com/maps?q=${position.latitude},${position.longitude}";
 
     // List of phone numbers to send the message to
-    List<String> recipients = contacts.map((i) => i!.phone).toList();
+    List<String> recipients = contacts
+        .map((i) => i?.phone ?? '')
+        .where((element) => element.isNotEmpty)
+        .toList();
 
     sendSMS(message: message, recipients: recipients, sendDirect: true);
   }

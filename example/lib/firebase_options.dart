@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1013247766191',
     projectId: 'mysafespaceapp-d5bc3',
     authDomain: 'mysafespaceapp-d5bc3.firebaseapp.com',
+    databaseURL: 'https://mysafespaceapp-d5bc3-default-rtdb.firebaseio.com',
     storageBucket: 'mysafespaceapp-d5bc3.appspot.com',
     measurementId: 'G-QREECHZERK',
   );
@@ -58,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:1013247766191:android:a1e20134a94d85759bae5a',
     messagingSenderId: '1013247766191',
     projectId: 'mysafespaceapp-d5bc3',
+    databaseURL: 'https://mysafespaceapp-d5bc3-default-rtdb.firebaseio.com',
     storageBucket: 'mysafespaceapp-d5bc3.appspot.com',
   );
 
@@ -66,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:1013247766191:ios:fb5a01aa649cb5f79bae5a',
     messagingSenderId: '1013247766191',
     projectId: 'mysafespaceapp-d5bc3',
+    databaseURL: 'https://mysafespaceapp-d5bc3-default-rtdb.firebaseio.com',
     storageBucket: 'mysafespaceapp-d5bc3.appspot.com',
     iosClientId: '1013247766191-pf1llkd9trr8v63vbd1ocb7lk814jbc1.apps.googleusercontent.com',
     iosBundleId: 'net.mysafespace.safeSpacePluginExample',
@@ -76,6 +79,7 @@ class DefaultFirebaseOptions {
     appId: '1:1013247766191:ios:fb5a01aa649cb5f79bae5a',
     messagingSenderId: '1013247766191',
     projectId: 'mysafespaceapp-d5bc3',
+    databaseURL: 'https://mysafespaceapp-d5bc3-default-rtdb.firebaseio.com',
     storageBucket: 'mysafespaceapp-d5bc3.appspot.com',
     iosClientId: '1013247766191-pf1llkd9trr8v63vbd1ocb7lk814jbc1.apps.googleusercontent.com',
     iosBundleId: 'net.mysafespace.safeSpacePluginExample',
