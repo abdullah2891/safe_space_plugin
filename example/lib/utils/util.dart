@@ -5,11 +5,11 @@ import '../constants/constant.dart';
 class Util {
   static String calculateWinner(List<List<String>> data) {
     // if Draw happens,
-    bool _isDraw = true;
+    bool isDraw = true;
     for (var i = 0; i < 3; i++) {
       for (var j = 0; j < 3; j++) {
         if (data[i][j] == '') {
-          _isDraw = false;
+          isDraw = false;
         }
       }
     }
@@ -60,7 +60,7 @@ class Util {
       return data[0][2];
     }
 
-    if (_isDraw) {
+    if (isDraw) {
       return 'draw';
     }
     return '';

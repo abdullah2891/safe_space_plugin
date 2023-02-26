@@ -10,7 +10,10 @@
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false,
-        "editor.defaultFormatter": "Dart-Code.dart-code"
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+        }
       },
       "dart.lineLength": 80,
   }

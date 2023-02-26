@@ -1,6 +1,9 @@
-import 'package:safe_space_plugin/src/ui/landing_page.dart';
-import 'utility/safe_space_plugin_platform_interface.dart';
 import 'package:flutter/material.dart';
+
+import 'src/ui/landing_page.dart';
+import 'src/utility/safe_space_plugin_platform_interface.dart';
+
+export 'src/ui/safe_space_landing_page.dart' show SafeSpaceLandingPage;
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

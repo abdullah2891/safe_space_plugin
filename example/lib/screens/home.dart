@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:safe_space_plugin/safe_space_plugin.dart';
 import 'package:safe_space_plugin_example/widgets/button.dart';
 import 'package:safe_space_plugin_example/widgets/cubes.dart';
-
-import 'package:safe_space_plugin/safe_space_landing_page.dart';
 
 import '../constants/constant.dart';
 import '../controllers/tic_tac_toe.dart';

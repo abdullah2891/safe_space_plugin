@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safe_space_plugin/safe_space_plugin.dart';
-import 'package:safe_space_plugin/utility/safe_space_plugin_platform_interface.dart';
-import 'package:safe_space_plugin/utility/safe_space_plugin_method_channel.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+import 'package:safe_space_plugin/safe_space_plugin.dart';
+import 'package:safe_space_plugin/src/utility/safe_space_plugin_method_channel.dart';
+import 'package:safe_space_plugin/src/utility/safe_space_plugin_platform_interface.dart';
 
 class MockSafeSpacePluginPlatform
     with MockPlatformInterfaceMixin

@@ -29,7 +29,7 @@
 //       appBar: AppBar(
 //         backgroundColor: Color(0xFF987E98),
 //         automaticallyImplyLeading: true,
-//         actions: [],
+//         actions: const [],
 //         centerTitle: false,
 //         elevation: 2,
 //       ),
@@ -45,7 +45,7 @@
 //                   scrollDirection: Axis.vertical,
 //                   children: [
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: ClipRRect(
 //                         borderRadius: BorderRadius.circular(10),
 //                         child: Image.asset(
@@ -57,7 +57,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () async {
 //                           Navigator.pop(context);
@@ -82,7 +82,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () {
 //                           print('Button pressed ...');
@@ -94,7 +94,7 @@
 //                         ),
 //                         options: FFButtonOptions(
 //                           height: 50,
-//                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+//                           padding: const  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
 //                           color: Color(0x7F006B6B),
 //                           textStyle:
 //                               FlutterFlowTheme.of(context).subtitle2.override(
@@ -111,7 +111,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () {
 //                           print('Button pressed ...');
@@ -123,7 +123,7 @@
 //                         ),
 //                         options: FFButtonOptions(
 //                           height: 50,
-//                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+//                           padding: const  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
 //                           color: Color(0x7F006B6B),
 //                           textStyle:
 //                               FlutterFlowTheme.of(context).subtitle2.override(
@@ -140,7 +140,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () {
 //                           print('Button pressed ...');
@@ -152,7 +152,7 @@
 //                         ),
 //                         options: FFButtonOptions(
 //                           height: 50,
-//                           padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
+//                           padding: const  EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
 //                           color: Color(0x7F006B6B),
 //                           textStyle:
 //                               FlutterFlowTheme.of(context).subtitle2.override(
@@ -169,7 +169,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () {
 //                           print('Button pressed ...');
@@ -198,7 +198,7 @@
 //                       ),
 //                     ),
 //                     Padding(
-//                       padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+//                       padding: const  EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
 //                       child: FFButtonWidget(
 //                         onPressed: () {
 //                           print('Button pressed ...');
