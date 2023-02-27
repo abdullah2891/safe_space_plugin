@@ -1,9 +1,8 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../flutter_flow/flutter_flow_calendar.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
-import '../utility/auth.dart';
+import '../database/database_proxy.dart';
 
 abstract class AbstractTimestampedWidget extends StatefulWidget {
   const AbstractTimestampedWidget({super.key});
@@ -44,17 +43,14 @@ class _ViewEntriesWidgetState extends State<ViewEntriesWidget> {
 
   _updateList() async {
     final timestamp = calendarSelectedDay!.start;
-    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
 
-    DatabaseReference ref = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/index/${widget.table}/$indexString");
-
-    final DataSnapshot entries = await ref.get();
+    final entries =
+        await DatabaseProxy(widget.table).getIndexedTimes(timestamp);
 
     List<DateTime> list = [];
 
-    for (final entry in entries.children) {
-      list.add(DateTime.parse(entry.value as String));
+    for (final entry in entries) {
+      list.add(entry);
     }
 
     setState(() {

@@ -1,8 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../flutter_flow/flutter_flow_model.dart';
-import '../../../utility/auth.dart';
+import '../../../database/database_proxy.dart';
 
 class ChildrenModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
@@ -33,10 +32,7 @@ class ChildrenModel extends FlutterFlowModel {
   }
 
   void saveOnline() async {
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/safetyPlanDb/children");
-
-    dataRef.set({
+    DatabaseProxy('safetyPlanDb').put('children', {
       'textController1': textController1?.text,
       'textController2': textController2?.text,
       'textController3': textController3?.text,
@@ -44,9 +40,7 @@ class ChildrenModel extends FlutterFlowModel {
   }
 
   static Future<ChildrenModel> getOnline() async {
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/safetyPlanDb/basics");
-    final snapshot = await dataRef.get();
+    final snapshot = await DatabaseProxy('safetyPlanDb').get('children');
     ChildrenModel b = ChildrenModel();
     TextEditingController t1 = TextEditingController();
     TextEditingController t2 = TextEditingController();
@@ -55,18 +49,16 @@ class ChildrenModel extends FlutterFlowModel {
     b.textController2 = t2;
     b.textController3 = t3;
 
-    if (snapshot.value != null) {
-      if ((snapshot.value as Map)['textController1'] != null) {
-        b.textController1?.text =
-            (snapshot.value as Map)['textController1'] as String;
+    if (snapshot != null) {
+      final map = snapshot as Map;
+      if (map['textController1'] != null) {
+        b.textController1?.text = map['textController1'] as String;
       }
-      if ((snapshot.value as Map)['textController2'] != null) {
-        b.textController2?.text =
-            (snapshot.value as Map)['textController2'] as String;
+      if (map['textController2'] != null) {
+        b.textController2?.text = map['textController2'] as String;
       }
-      if ((snapshot.value as Map)['textController3'] != null) {
-        b.textController3?.text =
-            (snapshot.value as Map)['textController3'] as String;
+      if (map['textController3'] != null) {
+        b.textController3?.text = map['textController3'] as String;
       }
     }
 

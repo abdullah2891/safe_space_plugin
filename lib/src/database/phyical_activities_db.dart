@@ -1,6 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
-
-import '../utility/auth.dart';
+import '../database/database_proxy.dart';
 
 class PhysicalAcvitityDbEntry {
   final String time;
@@ -9,20 +7,8 @@ class PhysicalAcvitityDbEntry {
   PhysicalAcvitityDbEntry(this.time, this.steps);
 
   void saveEntry() async {
-    final timestamp = DateTime.now();
-    final indexString =
-        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
-
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/pedometerDb/$indexString");
-
-    DatabaseReference indexRef = FirebaseDatabase.instance.ref(
-        "${Auth().currentUser!.uid}/index/pedometerDb/${timestamp.year}/${timestamp.month}/${timestamp.day}");
-
-    dataRef.set({'time': time, 'steps': steps});
-    indexRef
-        .push()
-        .set(timestamp.toIso8601String().replaceAll(RegExp(r'\..*'), ''));
+    DatabaseProxy('pedometerDb')
+        .saveIndexedData({'time': time, 'steps': steps});
   }
 
   List<PhysicalAcvitityDbEntry> getEntries() {
@@ -33,15 +19,16 @@ class PhysicalAcvitityDbEntry {
 
   static Future<PhysicalAcvitityDbEntry> getFromTimestamp(
       DateTime timestamp) async {
-    final indexString =
-        "${timestamp.year}/${timestamp.month}/${timestamp.day}/${timestamp.hour}:${timestamp.minute}:${timestamp.second}";
+    final snapshot =
+        await DatabaseProxy('pedometerDb').getFromTimestamp(timestamp);
 
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/pedometerDb/$indexString");
+    if (snapshot == null) {
+      return PhysicalAcvitityDbEntry('', '');
+    }
 
-    final snapshot = await dataRef.get();
+    final map = snapshot as Map;
 
-    return PhysicalAcvitityDbEntry((snapshot.value as Map)['time'] as String,
-        (snapshot.value as Map)['steps'] as String);
+    return PhysicalAcvitityDbEntry(
+        map['time'] as String, map['steps'] as String);
   }
 }

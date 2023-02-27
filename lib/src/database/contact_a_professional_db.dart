@@ -1,7 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 
-import '../utility/auth.dart';
+import '../database/database_proxy.dart';
 
 class Contact {
   final String name;
@@ -24,10 +23,7 @@ class Contact {
         contact.phones.isEmpty ? '' : contact.phones[0].number ?? '',
         contact.emails.isEmpty ? '' : contact.emails[0].email ?? '');
 
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/contactDb/$c");
-
-    dataRef.set({
+    DatabaseProxy('contactDb').put(c.toString(), {
       'name': phoneContact.name,
       'phone': phoneContact.phone,
       'email': phoneContact.email
@@ -36,15 +32,16 @@ class Contact {
   }
 
   static Future<Contact> getContact(int c) async {
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/contactDb/$c");
+    final snapshot = await DatabaseProxy('contactDb').get(c.toString());
 
-    final snapshot = await dataRef.get();
+    if (snapshot == null) {
+      return Contact('', '', '');
+    }
+
+    final map = snapshot as Map;
 
     return Contact(
-        (snapshot.value as Map)['name'] as String,
-        (snapshot.value as Map)['phone'] as String,
-        (snapshot.value as Map)['email'] as String);
+        map['name'] as String, map['phone'] as String, map['email'] as String);
   }
 
   static Future<List<Contact?>> getContacts() async {

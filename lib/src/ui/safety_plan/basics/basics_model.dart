@@ -1,8 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../flutter_flow/flutter_flow_model.dart';
-import '../../../utility/auth.dart';
+import '../../../database/database_proxy.dart';
 
 class BasicsModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
@@ -36,10 +35,7 @@ class BasicsModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
   void saveOnline() async {
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/safetyPlanDb/basics");
-
-    dataRef.set({
+    DatabaseProxy('safetyPlanDb').put('basics', {
       'radioButtonValue1': radioButtonValue1,
       'textController': textController?.text,
       'radioButtonValue2': radioButtonValue2,
@@ -51,41 +47,33 @@ class BasicsModel extends FlutterFlowModel {
   }
 
   static Future<BasicsModel> getOnline() async {
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/safetyPlanDb/basics");
-    final snapshot = await dataRef.get();
+    final snapshot = await DatabaseProxy('safetyPlanDb').get('basics');
     BasicsModel b = BasicsModel();
     TextEditingController t = TextEditingController();
     b.textController = t;
 
-    if (snapshot.value != null) {
-      if ((snapshot.value as Map)['radioButtonValue1'] != null) {
-        b.radioButtonValue1 =
-            (snapshot.value as Map)['radioButtonValue1'] as String;
+    if (snapshot != null) {
+      final map = snapshot as Map;
+      if (map['radioButtonValue1'] != null) {
+        b.radioButtonValue1 = map['radioButtonValue1'] as String;
       }
-      if ((snapshot.value as Map)['radioButtonValue2'] != null) {
-        b.radioButtonValue2 =
-            (snapshot.value as Map)['radioButtonValue2'] as String;
+      if (map['radioButtonValue2'] != null) {
+        b.radioButtonValue2 = map['radioButtonValue2'] as String;
       }
-      if ((snapshot.value as Map)['radioButtonValue3'] != null) {
-        b.radioButtonValue3 =
-            (snapshot.value as Map)['radioButtonValue3'] as String;
+      if (map['radioButtonValue3'] != null) {
+        b.radioButtonValue3 = map['radioButtonValue3'] as String;
       }
-      if ((snapshot.value as Map)['radioButtonValue4'] != null) {
-        b.radioButtonValue4 =
-            (snapshot.value as Map)['radioButtonValue4'] as String;
+      if (map['radioButtonValue4'] != null) {
+        b.radioButtonValue4 = map['radioButtonValue4'] as String;
       }
-      if ((snapshot.value as Map)['radioButtonValue5'] != null) {
-        b.radioButtonValue3 =
-            (snapshot.value as Map)['radioButtonValue5'] as String;
+      if (map['radioButtonValue5'] != null) {
+        b.radioButtonValue3 = map['radioButtonValue5'] as String;
       }
-      if ((snapshot.value as Map)['radioButtonValue6'] != null) {
-        b.radioButtonValue6 =
-            (snapshot.value as Map)['radioButtonValue6'] as String;
+      if (map['radioButtonValue6'] != null) {
+        b.radioButtonValue6 = map['radioButtonValue6'] as String;
       }
-      if ((snapshot.value as Map)['textController'] != null) {
-        b.textController?.text =
-            (snapshot.value as Map)['textController'] as String;
+      if (map['textController'] != null) {
+        b.textController?.text = map['textController'] as String;
       }
     }
 

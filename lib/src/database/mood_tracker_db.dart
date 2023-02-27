@@ -1,6 +1,4 @@
-import 'package:firebase_database/firebase_database.dart';
-
-import '../utility/auth.dart';
+import '../database/database_proxy.dart';
 
 class MoodTrackerDb {
   final String feeling;
@@ -8,20 +6,7 @@ class MoodTrackerDb {
   MoodTrackerDb(this.feeling);
 
   void saveEntry() async {
-    final timestamp = DateTime.now();
-    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
-
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
-
-    DatabaseReference indexRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/index/moodTracker/$indexString");
-
-    dataRef.set({'feeling': feeling});
-
-    indexRef
-        .push()
-        .set(timestamp.toIso8601String().replaceAll(RegExp(r'\..*'), ''));
+    DatabaseProxy('moodTracker').saveIndexedData({'feeling': feeling});
   }
 
   List<MoodTrackerDb> getEntries() {
@@ -31,13 +16,13 @@ class MoodTrackerDb {
   }
 
   static Future<MoodTrackerDb> getFromTimestamp(DateTime timestamp) async {
-    final indexString = "${timestamp.year}/${timestamp.month}/${timestamp.day}";
+    final snapshot =
+        await DatabaseProxy('moodTracker').getFromTimestamp(timestamp);
 
-    DatabaseReference dataRef = FirebaseDatabase.instance
-        .ref("${Auth().currentUser!.uid}/data/moodTracker/$indexString");
+    if (snapshot == null) {
+      return MoodTrackerDb('');
+    }
 
-    final snapshot = await dataRef.get();
-
-    return MoodTrackerDb((snapshot.value as Map)['feeling'] as String);
+    return MoodTrackerDb((snapshot as Map)['feeling'] as String);
   }
 }
