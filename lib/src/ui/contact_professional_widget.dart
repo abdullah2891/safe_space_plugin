@@ -23,10 +23,9 @@ class _ContactAProfessionalWidgetState
   final TextEditingController textController = TextEditingController();
   List<Contact?> contacts = [null, null, null, null];
 
-  String number = '1-800-787-3224';
+  String? number;
 
   Map<String, String> hotlines = {
-    'Test': '1-425-305-7338',
     'The National Domestic Violence Hotline': '1-800-787-3224',
     'The National Dating Abuse Helpline': '1-866-331-9474',
     'DoD Safe Helpline': '1-877-995-5247',
@@ -130,7 +129,15 @@ class _ContactAProfessionalWidgetState
                   fontSize: 22,
                 ),
           ),
-          actions: const [],
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.exit_to_app),
+              tooltip: 'Go to the next page',
+              onPressed: () {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+            ),
+          ],
           centerTitle: true,
           elevation: 2,
         ),
@@ -146,12 +153,13 @@ class _ContactAProfessionalWidgetState
                     Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                       child: Text(
-                        'The dropdown menu provides a list of national hotlines you can text or call for information.',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        'A list of national hotlines.',
+                        style: FlutterFlowTheme.of(context).title1,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       child: FlutterFlowDropDown<String>(
                         options: hotlines.keys.map((item) => item).toList(),
                         onChanged: (val) =>
@@ -175,11 +183,15 @@ class _ContactAProfessionalWidgetState
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       child: TextFormField(
                           controller: textController,
                           autofocus: true,
                           obscureText: false,
+                          minLines: 4,
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
                           decoration: InputDecoration(
                             hintText: 'Type a message here',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -228,77 +240,74 @@ class _ContactAProfessionalWidgetState
                           ),
                           style: FlutterFlowTheme.of(context).bodyText1),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () {
-                            _sendMessage(number, textController.text);
-                          },
-                          text: 'Text',
-                          icon: const Icon(
-                            Icons.message,
-                            size: 15,
-                          ),
-                          options: FFButtonOptions(
-                            width: 130,
-                            height: 40,
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        FFButtonWidget(
-                          onPressed: () {
-                            _call(number);
-                          },
-                          text: 'Call',
-                          icon: const Icon(
-                            Icons.phone,
-                            size: 15,
-                          ),
-                          options: FFButtonOptions(
-                            width: 130,
-                            height: 40,
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: const BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                      child: Text(
-                        'Select a list of contacts that you can trust in case of an emergency. These contacts will recieve your location if you chose to send it to them.',
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                      ),
-                    ),
                     Padding(
                       padding:
                           const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: buildList(),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          FFButtonWidget(
+                            onPressed: () {
+                              if (number == null) {
+                                return;
+                              }
+                              _sendMessage(number!, textController.text);
+                            },
+                            text: 'Text',
+                            icon: const Icon(
+                              Icons.message,
+                              size: 15,
+                            ),
+                            options: FFButtonOptions(
+                              width: 170,
+                              height: 40,
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: const BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          FFButtonWidget(
+                            onPressed: () {
+                              if (number == null) {
+                                return;
+                              }
+                              _call(number!);
+                            },
+                            text: 'Call',
+                            icon: const Icon(
+                              Icons.phone,
+                              size: 15,
+                            ),
+                            options: FFButtonOptions(
+                              width: 170,
+                              height: 40,
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: const BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

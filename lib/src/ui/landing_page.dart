@@ -7,7 +7,7 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Safe Space'),
+        title: const Text('My Safe Space'),
       ),
       body: Center(
         child: ElevatedButton(

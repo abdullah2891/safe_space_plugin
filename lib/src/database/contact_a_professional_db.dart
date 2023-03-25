@@ -23,12 +23,16 @@ class Contact {
         contact.phones.isEmpty ? '' : contact.phones[0].number ?? '',
         contact.emails.isEmpty ? '' : contact.emails[0].email ?? '');
 
-    DatabaseProxy('contactDb').put(c.toString(), {
+    await DatabaseProxy('contactDb').put(c.toString(), {
       'name': phoneContact.name,
       'phone': phoneContact.phone,
       'email': phoneContact.email
     });
     return phoneContact;
+  }
+
+  static Future<void> resetContact(int c) async {
+    await DatabaseProxy('contactDb').del(c.toString());
   }
 
   static Future<Contact> getContact(int c) async {

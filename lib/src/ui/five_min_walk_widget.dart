@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sensors/sensors.dart';
+import 'package:pedometer/pedometer.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
@@ -25,61 +25,67 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
   bool _isRunning = false;
   final bool _isReadOnly = false;
   late Timer _timer;
+  late StreamSubscription<StepCount> _streamSubscription;
+  int _stepCount = 0;
+  int _baselineCount = 0;
+  final _unfocusNode = FocusNode();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    accelerometerEvents.listen((AccelerometerEvent event) {
+    _streamSubscription = Pedometer.stepCountStream.listen((StepCount event) {
       if (_isRunning) {
-        if (event.x > 0.5) {
+        int steps = event.steps;
+        if (_baselineCount == -1) {
+          _baselineCount = event.steps;
           setState(() {
-            _stepCount++;
+            _baselineCount = _baselineCount;
           });
+          steps = 0;
+        } else {
+          steps = event.steps - _baselineCount;
         }
+        setState(() {
+          _stepCount = steps;
+        });
       }
     });
   }
 
   void _saveAndClear() {
     final entry =
-        PhysicalAcvitityDbEntry(_seconds as String, _stepCount as String);
+        PhysicalAcvitityDbEntry(_seconds.toString(), _stepCount.toString());
     entry.saveEntry();
   }
 
-  void _startTimer() {
-    setState(() {
-      _isRunning = true;
-      _stepCount = 0;
-    });
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  void _toggleRunning() {
+    if (_isRunning) {
+      _timer.cancel();
       setState(() {
-        _seconds++;
+        _isRunning = !_isRunning;
       });
-    });
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          _seconds++;
+        });
+      });
+      setState(() {
+        _isRunning = !_isRunning;
+        _baselineCount = -1;
+        _stepCount = 0;
+      });
+    }
   }
-
-  void _stopTimer() {
-    setState(() {
-      _isRunning = false;
-    });
-    _timer.cancel();
-  }
-
-  // void _resetTimer() {
-  //   setState(() {
-  //     _seconds = 0;
-  //     _isRunning = false;
-  //   });
-  //   _timer.cancel();
-  // }
-
-  int _stepCount = 0;
-  final _unfocusNode = FocusNode();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void dispose() {
     _unfocusNode.dispose();
+    if (_isRunning) {
+      _timer.cancel();
+    }
+    _streamSubscription.cancel();
     super.dispose();
   }
 
@@ -99,7 +105,15 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                 fontSize: 22,
               ),
         ),
-        actions: const [],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          ),
+        ],
         centerTitle: true,
         elevation: 2,
       ),
@@ -124,32 +138,11 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                 children: [
                   FFButtonWidget(
                     onPressed: () {
-                      _startTimer();
+                      _toggleRunning();
                     },
-                    text: 'Start',
+                    text: _isRunning ? 'Stop' : 'Start',
                     options: FFButtonOptions(
-                      width: 130,
-                      height: 40,
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () {
-                      _stopTimer();
-                    },
-                    text: 'Stop',
-                    options: FFButtonOptions(
-                      width: 130,
+                      width: 300,
                       height: 40,
                       color: FlutterFlowTheme.of(context).secondaryColor,
                       textStyle:

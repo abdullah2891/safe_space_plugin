@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/contact_a_professional_db.dart';
+import 'emergency_contacts_widget.dart';
 
 class EmergencyWidget extends StatefulWidget {
   const EmergencyWidget({Key? key}) : super(key: key);
@@ -58,7 +59,11 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
         .where((element) => element.isNotEmpty)
         .toList();
 
-    sendSMS(message: message, recipients: recipients, sendDirect: true);
+    sendSMS(message: message, recipients: recipients, sendDirect: true)
+        .catchError((onError) {
+      debugPrint(onError);
+      return "";
+    });
   }
 
   void _callEmergency() async {
@@ -68,9 +73,101 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
     }
   }
 
-  _dialAFriend() async {
+  _callPrimary() async {
     String number = contacts[0]!.phone; //set the number here
     FlutterPhoneDirectCaller.callNumber(number);
+  }
+
+  List<Widget> _buildContactList() {
+    String number = contacts[0]?.phone ?? ''; //set the number here
+
+    if (number == '') {
+      return [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+          child: FFButtonWidget(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const EmergencyContactsWidget()),
+              ).then((value) => {
+                    Contact.getContacts().then((value) => {
+                          setState(() {
+                            contacts = value;
+                            contactsThere = (value[0] == null);
+                          })
+                        })
+                  });
+            },
+            text: 'Update Emergency Contacts',
+            options: FFButtonOptions(
+              width: double.infinity,
+              height: 40,
+              color: FlutterFlowTheme.of(context).primaryBtnText,
+              textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                    fontFamily: 'Poppins',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ];
+    } else {
+      return [
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+          child: FFButtonWidget(
+            onPressed: () {
+              _sendLocation();
+            },
+            text: 'Send Location to Contacts',
+            options: FFButtonOptions(
+              width: double.infinity,
+              height: 40,
+              color: FlutterFlowTheme.of(context).primaryBtnText,
+              textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                    fontFamily: 'Poppins',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+          child: FFButtonWidget(
+            onPressed: () {
+              _callPrimary();
+            },
+            text: 'Phone Primary Contact',
+            options: FFButtonOptions(
+              width: double.infinity,
+              height: 40,
+              color: FlutterFlowTheme.of(context).primaryBtnText,
+              textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                    fontFamily: 'Poppins',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ];
+    }
   }
 
   @override
@@ -89,7 +186,15 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
                 fontSize: 22,
               ),
         ),
-        actions: const [],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),
@@ -122,52 +227,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                child: FFButtonWidget(
-                  onPressed: () {
-                    _sendLocation();
-                  },
-                  text: 'Send Location to Contacts',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 40,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                child: FFButtonWidget(
-                  onPressed: () {
-                    _dialAFriend();
-                  },
-                  text: 'Phone a Friend',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 40,
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
+              ..._buildContactList()
             ],
           ),
         ),

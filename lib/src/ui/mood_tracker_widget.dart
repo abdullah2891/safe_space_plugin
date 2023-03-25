@@ -112,7 +112,15 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                 fontSize: 22,
               ),
         ),
-        actions: const [],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),

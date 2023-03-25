@@ -5,6 +5,7 @@ import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../utility/auth.dart';
 import 'contact_professional_widget.dart';
 import 'document_abuse_widget.dart';
+import 'emergency_contacts_widget.dart';
 import 'emergency_widget.dart';
 import 'resources_widget.dart';
 import 'safety_plan/main/main_widget.dart';
@@ -56,7 +57,15 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                 fontSize: 22,
               ),
         ),
-        actions: const [],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            tooltip: 'Go to the next page',
+            onPressed: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 2,
       ),
@@ -73,7 +82,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.asset(
@@ -86,7 +95,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () async {
                           Navigator.push(
@@ -116,17 +125,17 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () async {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    const ContactAProfessionalWidget()),
+                                    const EmergencyContactsWidget()),
                           );
                         },
-                        text: 'Contact a Professional',
+                        text: 'Emergency Contacts',
                         icon: const Icon(
                           Icons.perm_contact_cal_outlined,
                           size: 15,
@@ -152,7 +161,43 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ContactAProfessionalWidget()),
+                          );
+                        },
+                        text: 'Contact a Professional',
+                        icon: const Icon(
+                          Icons.message,
+                          size: 15,
+                        ),
+                        options: FFButtonOptions(
+                          height: 50,
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              10, 0, 10, 0),
+                          color: const Color(0x7F006B6B),
+                          textStyle:
+                              FlutterFlowTheme.of(context).subtitle2.override(
+                                    fontFamily: 'Montserrat',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                          borderSide: const BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () {
                           Navigator.push(
@@ -188,7 +233,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () {
                           Navigator.push(
@@ -223,7 +268,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () async {
                           Navigator.push(
@@ -257,7 +302,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () async {
                           Navigator.push(
@@ -291,7 +336,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                          const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () {
                           Auth().signOut();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../utility/auth.dart';
@@ -97,7 +98,9 @@ class DatabaseProxy {
         for (final index in indexArray) {
           try {
             keys.add(DateTime.parse(index));
-          } catch (e) {}
+          } catch (e) {
+            debugPrint(e.toString());
+          }
         }
       }
     } else {
@@ -153,6 +156,20 @@ class DatabaseProxy {
 
       final snapshot = await dataRef.get();
       return snapshot.value;
+    }
+  }
+
+  Future<void> del(String key) async {
+    await _initialize();
+    final dataKey = _getDataKey(key);
+
+    if (_databaseType == DatabaseType.hive) {
+      final hiveBox = await _getBox(_table);
+      return await hiveBox.delete(dataKey);
+    } else {
+      DatabaseReference dataRef = FirebaseDatabase.instance.ref(dataKey);
+
+      return await dataRef.remove();
     }
   }
 }
