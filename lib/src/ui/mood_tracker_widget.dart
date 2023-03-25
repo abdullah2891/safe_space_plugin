@@ -24,9 +24,9 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   DateTimeRange? calendarSelectedDay;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String feeling = 'Happy';
+  String feeling = 'happy';
 
-  String audioFilePath = 'packages/safe_space_plugin/assets/audios/happy.m4a';
+  String audioFilePath = 'packages/safe_space_plugin/assets/audios/happy.mp3';
   bool _isReadOnly = false;
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   void _change(String foo) async {
     setState(() {
       feeling = foo;
-      audioFilePath = 'packages/safe_space_plugin/assets/audios/$feeling.m4a';
+      audioFilePath = 'packages/safe_space_plugin/assets/audios/$feeling.mp3';
     });
   }
 
