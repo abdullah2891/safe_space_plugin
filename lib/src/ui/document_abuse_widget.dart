@@ -10,6 +10,7 @@ import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/document_abuse_db.dart';
 import 'audio/audio_recorder.dart';
+import 'utils/widget_wrapper.dart';
 import 'view_entries.dart';
 
 class DocumentAbuseWidget extends AbstractTimestampedWidget {
@@ -31,7 +32,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
   final ImagePicker _picker = ImagePicker();
   String? audioFilePath;
   String? imageFilePath;
-  bool _isReadOnly = false;
+  late bool _isReadOnly;
 
   void _saveAndClear() {
     Uint8List? audioData;
@@ -57,11 +58,11 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
   @override
   void initState() {
     super.initState();
+    _isReadOnly = widget.loadForTimstamp != null;
     if (widget.loadForTimstamp != null) {
       DocumentAbuseEntry.getFromTimestamp(widget.loadForTimstamp!)
           .then((entry) {
         textController.text = entry.text;
-        _isReadOnly = true;
         getApplicationDocumentsDirectory().then((folder) {
           if (entry.audio != null) {
             File("${folder.path}/audio.m4a").writeAsBytesSync(entry.audio!);
@@ -132,13 +133,17 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
+                  WidgetWrapper(
+                    isEnabled: !_isReadOnly,
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                     child: TextFormField(
                       controller: textController,
                       autofocus: true,
                       obscureText: false,
+                      maxLines: null,
+                      minLines: 4,
+                      keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
                         hintText: 'Enter text here',
                         hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -186,7 +191,6 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                         fillColor: FlutterFlowTheme.of(context).primaryBtnText,
                       ),
                       style: FlutterFlowTheme.of(context).bodyText1,
-                      maxLines: null,
                     ),
                   ),
                   Padding(
@@ -207,7 +211,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Padding(
+                                  WidgetWrapper(
+                                    isEnabled: !_isReadOnly,
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
@@ -249,7 +254,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       ),
                                     ),
                                   ),
-                                  Padding(
+                                  WidgetWrapper(
+                                    isEnabled: !_isReadOnly,
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
@@ -351,7 +357,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Padding(
+                                  WidgetWrapper(
+                                    isEnabled: !_isReadOnly,
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
@@ -391,7 +398,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       ),
                                     ),
                                   ),
-                                  Padding(
+                                  WidgetWrapper(
+                                    isEnabled: !_isReadOnly,
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             5, 5, 5, 5),
@@ -455,7 +463,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Padding(
+                        WidgetWrapper(
+                          isEnabled: !_isReadOnly,
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                           child: FFButtonWidget(
@@ -485,7 +494,8 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                             ),
                           ),
                         ),
-                        Padding(
+                        WidgetWrapper(
+                          isEnabled: !_isReadOnly,
                           padding:
                               const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                           child: FFButtonWidget(

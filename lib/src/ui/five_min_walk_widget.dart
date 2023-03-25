@@ -6,6 +6,7 @@ import 'package:pedometer/pedometer.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/phyical_activities_db.dart';
+import 'utils/widget_wrapper.dart';
 import 'view_entries.dart';
 
 class FiveMinWalkWidget extends AbstractTimestampedWidget {
@@ -23,7 +24,7 @@ class FiveMinWalkWidget extends AbstractTimestampedWidget {
 class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
   int _seconds = 0;
   bool _isRunning = false;
-  final bool _isReadOnly = false;
+  late bool _isReadOnly;
   late Timer _timer;
   late StreamSubscription<StepCount> _streamSubscription;
   int _stepCount = 0;
@@ -34,6 +35,7 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
   @override
   void initState() {
     super.initState();
+    _isReadOnly = widget.loadForTimstamp != null;
     _streamSubscription = Pedometer.stepCountStream.listen((StepCount event) {
       if (_isRunning) {
         int steps = event.steps;
@@ -136,25 +138,28 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  FFButtonWidget(
-                    onPressed: () {
-                      _toggleRunning();
-                    },
-                    text: _isRunning ? 'Stop' : 'Start',
-                    options: FFButtonOptions(
-                      width: 300,
-                      height: 40,
-                      color: FlutterFlowTheme.of(context).secondaryColor,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Poppins',
-                                color: Colors.white,
-                              ),
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
+                  WidgetWrapper(
+                    isEnabled: !_isReadOnly,
+                    child: FFButtonWidget(
+                      onPressed: () {
+                        _toggleRunning();
+                      },
+                      text: _isRunning ? 'Stop' : 'Start',
+                      options: FFButtonOptions(
+                        width: 300,
+                        height: 40,
+                        color: FlutterFlowTheme.of(context).secondaryColor,
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.white,
+                                ),
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ],
@@ -165,11 +170,12 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
+                    WidgetWrapper(
+                      isEnabled: !_isReadOnly,
                       padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                       child: FFButtonWidget(
                         onPressed: () {
-                          if (!_isReadOnly) _saveAndClear();
+                          _saveAndClear();
                         },
                         text: 'Save',
                         icon: const Icon(
@@ -193,18 +199,17 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
                         ),
                       ),
                     ),
-                    Padding(
+                    WidgetWrapper(
+                      isEnabled: !_isReadOnly,
                       padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                       child: FFButtonWidget(
                         onPressed: () {
-                          if (!_isReadOnly) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ViewEntriesWidget(
-                                      table: 'pedometerDb', parent: widget)),
-                            );
-                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ViewEntriesWidget(
+                                    table: 'pedometerDb', parent: widget)),
+                          );
                         },
                         text: 'View',
                         icon: const Icon(

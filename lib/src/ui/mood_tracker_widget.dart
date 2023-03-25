@@ -6,6 +6,7 @@ import '../../flutter_flow/flutter_flow_audio_player.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/mood_tracker_db.dart';
+import 'utils/widget_wrapper.dart';
 import 'view_entries.dart';
 
 class MoodTrackerWidget extends AbstractTimestampedWidget {
@@ -27,14 +28,14 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
   String feeling = 'happy';
 
   String audioFilePath = 'packages/safe_space_plugin/assets/audios/happy.mp3';
-  bool _isReadOnly = false;
+  late bool _isReadOnly;
   @override
   void initState() {
     super.initState();
+    _isReadOnly = widget.loadForTimstamp != null;
     if (widget.loadForTimstamp != null) {
       MoodTrackerDb.getFromTimestamp(widget.loadForTimstamp!).then((entry) {
         feeling = entry.feeling;
-        _isReadOnly = true;
       });
     }
   }
@@ -136,8 +137,8 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            20, 20, 20, 20),
                         child: FlutterFlowAudioPlayer(
                           audio: Audio(
                             audioFilePath,
@@ -183,7 +184,8 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
+                            WidgetWrapper(
+                              isEnabled: !_isReadOnly,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   5, 5, 5, 5),
                               child: FFButtonWidget(
@@ -213,7 +215,8 @@ class _MoodTrackerWidgetState extends State<MoodTrackerWidget> {
                                 ),
                               ),
                             ),
-                            Padding(
+                            WidgetWrapper(
+                              isEnabled: !_isReadOnly,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   5, 5, 5, 5),
                               child: FFButtonWidget(

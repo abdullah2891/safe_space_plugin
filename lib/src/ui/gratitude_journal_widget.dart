@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/gratitude_journal_db.dart';
+import 'utils/widget_wrapper.dart';
 import 'view_entries.dart';
 
 class GratitudeJournalWidget extends AbstractTimestampedWidget {
@@ -25,11 +26,12 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
   TextEditingController? textController4;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _isReadOnly = false;
+  late bool _isReadOnly;
 
   @override
   void initState() {
     super.initState();
+    _isReadOnly = widget.loadForTimstamp != null;
     textController1 = TextEditingController();
     textController2 = TextEditingController();
     textController3 = TextEditingController();
@@ -41,7 +43,6 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
         textController2?.text = entry.lookingForwardTo;
         textController3?.text = entry.mistake;
         textController4?.text = entry.yearAgo;
-        _isReadOnly = true;
       });
     }
   }
@@ -120,7 +121,8 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                         ),
                       ),
-                      Padding(
+                      WidgetWrapper(
+                        isEnabled: !_isReadOnly,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Container(
@@ -198,7 +200,8 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                         ),
                       ),
-                      Padding(
+                      WidgetWrapper(
+                        isEnabled: !_isReadOnly,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Container(
@@ -276,7 +279,8 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                         ),
                       ),
-                      Padding(
+                      WidgetWrapper(
+                        isEnabled: !_isReadOnly,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Container(
@@ -354,7 +358,8 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                         ),
                       ),
-                      Padding(
+                      WidgetWrapper(
+                        isEnabled: !_isReadOnly,
                         padding:
                             const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: Container(
@@ -416,7 +421,8 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                         ),
                       ),
-                      Padding(
+                      WidgetWrapper(
+                        isEnabled: !_isReadOnly,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             10, 10, 10, 10),
                         child: Row(
@@ -428,7 +434,7 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                                   5, 5, 5, 5),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  if (!_isReadOnly) _saveAndClear();
+                                  _saveAndClear();
                                 },
                                 text: 'Save',
                                 icon: const Icon(
@@ -453,22 +459,20 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                                 ),
                               ),
                             ),
-                            Padding(
+                            WidgetWrapper(
+                              isEnabled: !_isReadOnly,
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   5, 5, 5, 5),
                               child: FFButtonWidget(
                                 onPressed: () {
-                                  if (!_isReadOnly) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ViewEntriesWidget(
-                                                table: 'gratitudeJournalDb',
-                                                parent: widget,
-                                              )),
-                                    );
-                                  }
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ViewEntriesWidget(
+                                              table: 'gratitudeJournalDb',
+                                              parent: widget,
+                                            )),
+                                  );
                                 },
                                 text: 'View',
                                 icon: const Icon(
