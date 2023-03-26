@@ -51,11 +51,11 @@ dependencies:
   timeago: ^3.2.2
   url_launcher: ^6.1.7
   webviewx: ^0.2.1
-  fluttercontactpicker: ^4.7.0
   firebase_auth: ^4.2.2
   string_similarity: ^2.0.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  flutter_contacts: ^1.1.6
 
 dev_dependencies:
   flutter_test:

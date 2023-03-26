@@ -42,6 +42,19 @@ MySafeSpace plugin.
     * Install from https://code.visualstudio.com/Download
     * Open VSCode and install Flutter extension
 
+# Mac setup
+* Follow instructions in https://www.geeksforgeeks.org/how-to-install-flutter-app-on-ios/
+* Use Runner.xcworkspace in example
+## Running on iPhone
+* (iPhone) Enable Developer mode in Settings -> Privacy & Security
+* (VS) cd example
+* (iPhone) unlock
+* connect iPhone to Mac USB
+* (VS) Select iPhone as preferred device
+* (VS - will fail) flutter run --release
+* (iPhone) Trust Developer App in Settings -> General -> VPN & Device Management 
+* (VS) flutter run --release
+
 # Database
   ```
   Global:

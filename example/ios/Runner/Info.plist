@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Safe Space Plugin</string>
+	<string>Tic-Tac-Toe</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -49,5 +49,13 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<true/>
+	<key>NSContactsUsageDescription</key>
+	<string>For emergency contacts</string>
+	<key>NSCameraUsageDescription</key>
+	<string>To capture record</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>To capture record</string>
+	<key>NSMotionUsageDescription</key>
+	<string>To capture physical activity</string>
 </dict>
 </plist>

@@ -84,10 +84,15 @@ class _FiveMinWalkWidgetState extends State<FiveMinWalkWidget> {
   @override
   void dispose() {
     _unfocusNode.dispose();
-    if (_isRunning) {
-      _timer.cancel();
+    try {
+      if (_isRunning) {
+        _timer.cancel();
+      }
+      _streamSubscription.cancel();
+    } catch (e) {
+      debugPrint(e.toString());
     }
-    _streamSubscription.cancel();
+
     super.dispose();
   }
 

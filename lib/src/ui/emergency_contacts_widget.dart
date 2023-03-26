@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
-import '../database/contact_a_professional_db.dart';
+import '../database/emergency_contact.dart';
 
 class EmergencyContactsWidget extends StatefulWidget {
   const EmergencyContactsWidget({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class _EmergencyContactsWidgetState extends State<EmergencyContactsWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
-  List<Contact?> contacts = [null, null, null, null];
+  List<EmergencyContact?> contacts = [null, null, null, null];
 
   @override
   void dispose() {
@@ -28,7 +28,7 @@ class _EmergencyContactsWidgetState extends State<EmergencyContactsWidget> {
   void initState() {
     super.initState();
 
-    Contact.getContacts().then((value) => {
+    EmergencyContact.getContacts().then((value) => {
           setState(() {
             contacts = value;
           })
@@ -46,7 +46,7 @@ class _EmergencyContactsWidgetState extends State<EmergencyContactsWidget> {
             style: FlutterFlowTheme.of(context).title3,
           ),
           onTap: () async {
-            Contact? c1 = await Contact.saveContact(i);
+            EmergencyContact? c1 = await EmergencyContact.saveContact(i);
             if (c1 == null) {
               return;
             }
@@ -56,7 +56,7 @@ class _EmergencyContactsWidgetState extends State<EmergencyContactsWidget> {
           },
           onLongPress: () async {
             if (contacts[i - 1] != null) {
-              await Contact.resetContact(i);
+              await EmergencyContact.resetContact(i);
               setState(() {
                 contacts[i - 1] = null;
               });

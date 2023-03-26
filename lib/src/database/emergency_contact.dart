@@ -1,27 +1,30 @@
-import 'package:fluttercontactpicker/fluttercontactpicker.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 
 import '../database/database_proxy.dart';
 
-class Contact {
+class EmergencyContact {
   final String name;
   final String phone;
   final String? email;
 
-  Contact(this.name, this.phone, this.email);
+  EmergencyContact(this.name, this.phone, this.email);
 
-  static Future<Contact?> saveContact(int c) async {
-    late FullContact contact;
+  static Future<EmergencyContact?> saveContact(int c) async {
+    late Contact? contact;
     try {
-      contact =
-          await FlutterContactPicker.pickFullContact(askForPermission: true);
+      contact = await FlutterContacts.openExternalPick();
+      if (contact == null) {
+        return null;
+      }
     } catch (e) {
       return null;
     }
 
-    Contact phoneContact = Contact(
-        contact.name?.firstName ?? '',
-        contact.phones.isEmpty ? '' : contact.phones[0].number ?? '',
-        contact.emails.isEmpty ? '' : contact.emails[0].email ?? '');
+    EmergencyContact phoneContact = EmergencyContact(
+      contact.displayName,
+      contact.phones.isEmpty ? '' : contact.phones[0].number,
+      contact.emails.isEmpty ? '' : contact.emails[0].address,
+    );
 
     await DatabaseProxy('contactDb').put(c.toString(), {
       'name': phoneContact.name,
@@ -35,21 +38,21 @@ class Contact {
     await DatabaseProxy('contactDb').del(c.toString());
   }
 
-  static Future<Contact> getContact(int c) async {
+  static Future<EmergencyContact> getContact(int c) async {
     final snapshot = await DatabaseProxy('contactDb').get(c.toString());
 
     if (snapshot == null) {
-      return Contact('', '', '');
+      return EmergencyContact('', '', '');
     }
 
     final map = snapshot as Map;
 
-    return Contact(
+    return EmergencyContact(
         map['name'] as String, map['phone'] as String, map['email'] as String);
   }
 
-  static Future<List<Contact?>> getContacts() async {
-    List<Contact?> contacts = [];
+  static Future<List<EmergencyContact?>> getContacts() async {
+    List<EmergencyContact?> contacts = [];
     for (int i = 1; i <= 4; i++) {
       try {
         contacts.add(await getContact(i));

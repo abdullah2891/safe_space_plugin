@@ -5,7 +5,7 @@ import 'package:flutter_sms/flutter_sms.dart';
 import '../../flutter_flow/flutter_flow_drop_down.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
-import '../database/contact_a_professional_db.dart';
+import '../database/emergency_contact.dart';
 
 class ContactAProfessionalWidget extends StatefulWidget {
   const ContactAProfessionalWidget({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _ContactAProfessionalWidgetState
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textController = TextEditingController();
-  List<Contact?> contacts = [null, null, null, null];
+  List<EmergencyContact?> contacts = [null, null, null, null];
 
   String? number;
 
@@ -47,7 +47,7 @@ class _ContactAProfessionalWidgetState
   void initState() {
     super.initState();
 
-    Contact.getContacts().then((value) => {
+    EmergencyContact.getContacts().then((value) => {
           setState(() {
             contacts = value;
           })
@@ -65,7 +65,7 @@ class _ContactAProfessionalWidgetState
             style: FlutterFlowTheme.of(context).title3,
           ),
           onTap: () async {
-            Contact? c1 = await Contact.saveContact(i);
+            EmergencyContact? c1 = await EmergencyContact.saveContact(i);
             if (c1 == null) {
               return;
             }

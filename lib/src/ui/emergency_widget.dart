@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
-import '../database/contact_a_professional_db.dart';
+import '../database/emergency_contact.dart';
 import 'emergency_contacts_widget.dart';
 
 class EmergencyWidget extends StatefulWidget {
@@ -19,7 +19,7 @@ class EmergencyWidget extends StatefulWidget {
 class EmergencyWidgetState extends State<EmergencyWidget> {
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Contact?> contacts = [null, null, null, null];
+  List<EmergencyContact?> contacts = [null, null, null, null];
   bool contactsThere = false;
 
   @override
@@ -32,7 +32,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
   void initState() {
     super.initState();
 
-    Contact.getContacts().then((value) => {
+    EmergencyContact.getContacts().then((value) => {
           setState(() {
             contacts = value;
             contactsThere = (value[0] == null);
@@ -92,7 +92,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
                 MaterialPageRoute(
                     builder: (context) => const EmergencyContactsWidget()),
               ).then((value) => {
-                    Contact.getContacts().then((value) => {
+                    EmergencyContact.getContacts().then((value) => {
                           setState(() {
                             contacts = value;
                             contactsThere = (value[0] == null);
