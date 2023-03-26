@@ -5,7 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   geolocator_windows
-  record_windows
+  permission_handler_windows
   safe_space_plugin
   url_launcher_windows
 )

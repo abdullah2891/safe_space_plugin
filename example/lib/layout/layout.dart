@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:safe_space_plugin_example/constants/constant.dart';
-import 'package:safe_space_plugin_example/utils/config.dart';
 
+import '../constants/constant.dart';
+import '../utils/config.dart';
 import '../widgets/app_footer.dart';
 import '../widgets/appbar.dart';
 

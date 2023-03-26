@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:safe_space_plugin/safe_space_plugin.dart';
-import 'package:safe_space_plugin_example/widgets/button.dart';
-import 'package:safe_space_plugin_example/widgets/cubes.dart';
 
 import '../constants/constant.dart';
 import '../controllers/tic_tac_toe.dart';
 import '../layout/layout.dart';
 import '../utils/config.dart';
+import '../widgets/button.dart';
+import '../widgets/cubes.dart';
 import '../widgets/scoreboard.dart';
 
 class HomeScreen extends StatefulWidget {

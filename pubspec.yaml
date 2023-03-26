@@ -1,7 +1,7 @@
 name: safe_space_plugin
 description: A new Flutter plugin project.
 version: 0.0.1
-homepage:
+homepage: https://mysafespace.net
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
@@ -42,7 +42,6 @@ dependencies:
   percent_indicator: ^4.2.2
   plugin_platform_interface: ^2.0.2
   provider: ^6.0.5
-  record: ^4.4.4
   rxdart: ^0.27.7
   sensors: ^2.0.3
   shared_preferences: ^2.0.15
@@ -56,6 +55,10 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   flutter_contacts: ^1.1.6
+  flutter_sound: ^9.2.13
+  permission_handler: ^10.2.0
+  audio_session: ^0.1.13
+  flutter_sound_platform_interface: ^9.2.13
 
 dev_dependencies:
   flutter_test:
