@@ -101,7 +101,6 @@ class _PartnerWidgetState extends State<PartnerWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController1,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: '[Some hint text...]',
@@ -159,7 +158,6 @@ class _PartnerWidgetState extends State<PartnerWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController2,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: '[Some hint text...]',
@@ -217,7 +215,6 @@ class _PartnerWidgetState extends State<PartnerWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController3,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: '[Some hint text...]',
@@ -275,7 +272,6 @@ class _PartnerWidgetState extends State<PartnerWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController4,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: '[Some hint text...]',
@@ -333,7 +329,6 @@ class _PartnerWidgetState extends State<PartnerWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController5,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: '[Some hint text...]',

@@ -187,7 +187,6 @@ class _ContactAProfessionalWidgetState
                           const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                       child: TextFormField(
                           controller: textController,
-                          autofocus: true,
                           obscureText: false,
                           minLines: 4,
                           maxLines: null,

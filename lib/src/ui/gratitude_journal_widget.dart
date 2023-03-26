@@ -135,7 +135,6 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                           child: TextFormField(
                             controller: textController1,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -214,7 +213,6 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                           child: TextFormField(
                             controller: textController2,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -293,7 +291,6 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                           child: TextFormField(
                             controller: textController3,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,
@@ -372,7 +369,6 @@ class _GratitudeJournalWidgetState extends State<GratitudeJournalWidget> {
                           ),
                           child: TextFormField(
                             controller: textController4,
-                            autofocus: true,
                             obscureText: false,
                             decoration: InputDecoration(
                               hintStyle: FlutterFlowTheme.of(context).bodyText2,

@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Padding(
                 padding:
-                    EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 7),
+                    EdgeInsets.only(bottom: SizeConfig.safeBlockVertical * 4),
                 child: ScoreboardWidget(
                   xScore: ticTacToeController.xScore,
                   yScore: ticTacToeController.yScore,
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               Padding(
                   padding:
-                      EdgeInsets.only(top: SizeConfig.safeBlockVertical * 10),
+                      EdgeInsets.only(top: SizeConfig.safeBlockVertical * 4),
                   child: ButtonWidget(
                       onPressed: () => {ticTacToeController.onNewGameClick()},
                       text: Constants.newGameText)),

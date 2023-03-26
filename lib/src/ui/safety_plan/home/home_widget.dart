@@ -129,7 +129,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController1,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:
@@ -188,7 +187,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController2,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:
@@ -247,7 +245,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController3,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: 'A friend\'s house? ',
@@ -305,7 +302,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController4,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:

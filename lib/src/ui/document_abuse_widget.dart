@@ -157,7 +157,6 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                   padding: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                   child: TextFormField(
                     controller: textController,
-                    autofocus: true,
                     obscureText: false,
                     maxLines: null,
                     minLines: 4,
@@ -217,8 +216,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     color: const Color(0xFFDFBDDF),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -239,18 +237,6 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       } else {
                                         _startRecording();
                                       }
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           AudioRecorder(
-                                      //             onStop: (String path) {
-                                      //               setState(() {
-                                      //                 8;
-                                      //               });
-                                      //             },
-                                      //           )),
-                                      // );
                                     },
                                     text: _isRecording ? 'Stop' : 'Record',
                                     icon: const Icon(
@@ -258,7 +244,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       size: 15,
                                     ),
                                     options: FFButtonOptions(
-                                      width: 130,
+                                      width: 100,
                                       height: 40,
                                       color: const Color(0xFF0B6B65),
                                       textStyle: FlutterFlowTheme.of(context)
@@ -294,7 +280,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       size: 15,
                                     ),
                                     options: FFButtonOptions(
-                                      width: 130,
+                                      width: 100,
                                       height: 40,
                                       color: const Color(0xFF0B6B65),
                                       textStyle: FlutterFlowTheme.of(context)
@@ -365,8 +351,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     color: const Color(0xFFDFBDDF),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                      padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -399,7 +384,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       size: 15,
                                     ),
                                     options: FFButtonOptions(
-                                      width: 130,
+                                      width: 100,
                                       height: 40,
                                       color: const Color(0xFF0B6B65),
                                       textStyle: FlutterFlowTheme.of(context)
@@ -435,7 +420,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                                       size: 15,
                                     ),
                                     options: FFButtonOptions(
-                                      width: 130,
+                                      width: 100,
                                       height: 40,
                                       color: const Color(0xFF0B6B65),
                                       textStyle: FlutterFlowTheme.of(context)
@@ -493,7 +478,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                             size: 15,
                           ),
                           options: FFButtonOptions(
-                            width: 130,
+                            width: 140,
                             height: 40,
                             color: const Color(0xFF0B6B65),
                             textStyle:
@@ -532,7 +517,7 @@ class _DocumentAbuseWidgetState extends State<DocumentAbuseWidget> {
                             size: 15,
                           ),
                           options: FFButtonOptions(
-                            width: 130,
+                            width: 140,
                             height: 40,
                             color: const Color(0xFF0B6B65),
                             textStyle:

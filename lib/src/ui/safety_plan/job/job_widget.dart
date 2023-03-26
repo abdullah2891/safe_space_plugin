@@ -93,7 +93,6 @@ class _JobWidgetState extends State<JobWidget> {
                               ),
                               TextFormField(
                                 controller: _model.textController1,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:
@@ -203,7 +202,6 @@ class _JobWidgetState extends State<JobWidget> {
                               ),
                               TextFormField(
                                 controller: _model.textController2,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:

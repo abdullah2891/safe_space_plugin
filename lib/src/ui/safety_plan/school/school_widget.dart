@@ -98,7 +98,6 @@ class _SchoolWidgetState extends State<SchoolWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController1,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:
@@ -183,7 +182,6 @@ class _SchoolWidgetState extends State<SchoolWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController2,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:
@@ -243,7 +241,6 @@ class _SchoolWidgetState extends State<SchoolWidget> {
                                 ),
                                 TextFormField(
                                   controller: _model.textController3,
-                                  autofocus: true,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText:

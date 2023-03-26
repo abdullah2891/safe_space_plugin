@@ -26,20 +26,24 @@ class CubesWidget extends StatelessWidget {
         ignoring: ticTacToeController.stopInteraction.value,
         child: Container(
           width: SizeConfig.safeBlockHorizontal * 26,
-          height: SizeConfig.safeBlockVertical * 12,
+          height: SizeConfig.safeBlockVertical * 15,
           decoration: BoxDecoration(
-              color: Constants.backgroundColor,
-              border: Util.getBorderSide(i, j)),
-          child: Center(
-              child: Text(
-            displayElement,
-            textAlign: TextAlign.center,
-            style: TextStyle(
+            color: Constants.backgroundColor,
+            border: Util.getBorderSide(i, j),
+          ),
+          child: Align(
+            alignment: Alignment.center,
+            child: Text(
+              displayElement,
+              textAlign: TextAlign.center,
+              style: TextStyle(
                 fontSize: 80,
                 color: displayElement == 'X'
                     ? Constants.whiteColor
-                    : Constants.accentColor),
-          )),
+                    : Constants.accentColor,
+              ),
+            ),
+          ),
         ),
       );
     });

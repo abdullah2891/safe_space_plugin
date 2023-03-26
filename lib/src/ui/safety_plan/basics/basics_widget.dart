@@ -128,7 +128,6 @@ class _BasicsWidgetState extends State<BasicsWidget> {
                               ),
                               TextFormField(
                                 controller: _model.textController,
-                                autofocus: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText:
