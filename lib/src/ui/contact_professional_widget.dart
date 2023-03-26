@@ -259,7 +259,7 @@ class _ContactAProfessionalWidgetState
                               size: 15,
                             ),
                             options: FFButtonOptions(
-                              width: 170,
+                              width: 150,
                               height: 40,
                               color:
                                   FlutterFlowTheme.of(context).secondaryColor,
@@ -289,7 +289,7 @@ class _ContactAProfessionalWidgetState
                               size: 15,
                             ),
                             options: FFButtonOptions(
-                              width: 170,
+                              width: 150,
                               height: 40,
                               color:
                                   FlutterFlowTheme.of(context).secondaryColor,
