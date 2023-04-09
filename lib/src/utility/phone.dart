@@ -13,8 +13,7 @@ class Phone {
     try {
       if (Config().isDemo) {
         await _showMyDialog([
-          "Demo mode",
-          "Call number: $number",
+          "Calling number: $number",
         ], context);
         return;
       }
@@ -38,8 +37,7 @@ class Phone {
       required BuildContext context}) async {
     if (Config().isDemo) {
       await _showMyDialog([
-        "Demo mode",
-        "Send message: $message",
+        "Sending message: $message",
         "To: $recipients",
       ], context);
       return;
@@ -62,7 +60,7 @@ class Phone {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          title: const Text('Demo Mode'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
