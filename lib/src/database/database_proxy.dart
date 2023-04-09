@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../utility/auth.dart';
+import '../utility/config.dart';
 
 enum DatabaseType { hive, firebase }
 
 class DatabaseProxy {
   static final Map<String, Box> _boxes = {};
-  static const DatabaseType _databaseType = DatabaseType.hive;
+  static final DatabaseType _databaseType =
+      Config().isDemo ? DatabaseType.hive : DatabaseType.firebase;
   static String? _uid;
 
   static Future<void> _initialize() async {
     if (_uid == null) {
       try {
-        _uid = Auth().currentUser!.uid;
+        _uid = Auth.currentUserId;
       } catch (e) {
         _uid = 'test';
       }
@@ -36,6 +38,8 @@ class DatabaseProxy {
   }
 
   static String get uid => _uid!;
+
+  static Future<Box> getBox(String name) => _getBox(name);
 
   final String _table;
 

@@ -15,9 +15,8 @@ class SafeSpaceLandingPage extends StatefulWidget {
 class _SafeSpaceLandingPageState extends State<SafeSpaceLandingPage> {
   @override
   Widget build(BuildContext context) {
-    final auth = Auth();
     return StreamBuilder(
-      stream: auth.authStateChanges,
+      stream: Auth.authStateChanges,
       builder: (context, snapshot) {
         if (widget.param == 2) {
           if (snapshot.hasData) {

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:flutter_sms/flutter_sms.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/emergency_contact.dart';
+import '../utility/phone.dart';
 import 'emergency_contacts_widget.dart';
 
 class EmergencyWidget extends StatefulWidget {
@@ -40,10 +38,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
         });
   }
 
-  void _sendLocation() async {
-    if (!await canSendSMS()) {
-      return;
-    }
+  void _sendLocation(BuildContext context) async {
     await Geolocator.requestPermission();
     // Get the current location
     Position position = await Geolocator.getCurrentPosition(
@@ -59,26 +54,24 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
         .where((element) => element.isNotEmpty)
         .toList();
 
-    sendSMS(message: message, recipients: recipients, sendDirect: true)
-        .catchError((onError) {
-      debugPrint(onError);
-      return "";
-    });
+    // ignore: use_build_context_synchronously
+    await Phone.text(
+        message: message,
+        recipients: recipients,
+        sendDirect: true,
+        context: context);
   }
 
-  void _callEmergency() async {
-    var url = Uri.parse('tel:911');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    }
+  void _callEmergency(BuildContext context) async {
+    Phone.call(number: '911', callDirect: false, context: context);
   }
 
-  _callPrimary() async {
+  _callPrimary(BuildContext context) async {
     String number = contacts[0]!.phone; //set the number here
-    FlutterPhoneDirectCaller.callNumber(number);
+    Phone.call(number: number, callDirect: true, context: context);
   }
 
-  List<Widget> _buildContactList() {
+  List<Widget> _buildContactList(BuildContext context) {
     String number = contacts[0]?.phone ?? ''; //set the number here
 
     if (number == '') {
@@ -124,7 +117,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
           padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
           child: FFButtonWidget(
             onPressed: () {
-              _sendLocation();
+              _sendLocation(context);
             },
             text: 'Send Location to Contacts',
             options: FFButtonOptions(
@@ -147,7 +140,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
           padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
           child: FFButtonWidget(
             onPressed: () {
-              _callPrimary();
+              _callPrimary(context);
             },
             text: 'Phone Primary Contact',
             options: FFButtonOptions(
@@ -208,7 +201,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
                 padding: const EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                 child: FFButtonWidget(
                   onPressed: () {
-                    _callEmergency();
+                    _callEmergency(context);
                   },
                   text: 'Call 911',
                   options: FFButtonOptions(
@@ -227,7 +220,7 @@ class EmergencyWidgetState extends State<EmergencyWidget> {
                   ),
                 ),
               ),
-              ..._buildContactList()
+              ..._buildContactList(context)
             ],
           ),
         ),

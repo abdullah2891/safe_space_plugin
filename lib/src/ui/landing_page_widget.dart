@@ -339,7 +339,7 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                           const EdgeInsetsDirectional.fromSTEB(10, 7, 10, 7),
                       child: FFButtonWidget(
                         onPressed: () {
-                          Auth().signOut();
+                          Auth.signOut();
                           Navigator.pop(context);
                         },
                         text: 'Logout',

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-import 'package:flutter_sms/flutter_sms.dart';
 
 import '../../flutter_flow/flutter_flow_drop_down.dart';
 import '../../flutter_flow/flutter_flow_theme.dart';
 import '../../flutter_flow/flutter_flow_widgets.dart';
 import '../database/emergency_contact.dart';
+import '../utility/phone.dart';
 
 class ContactAProfessionalWidget extends StatefulWidget {
   const ContactAProfessionalWidget({Key? key}) : super(key: key);
@@ -95,22 +94,16 @@ class _ContactAProfessionalWidgetState
     return childs;
   }
 
-  void _sendMessage(String number, String message) async {
-    if (!await canSendSMS()) {
-      return;
-    }
-    // List of phone numbers to send the message to
-    List<String> recipients = [number];
-
-    sendSMS(message: message, recipients: recipients, sendDirect: true);
+  void _sendMessage(String number, String message, BuildContext context) async {
+    await Phone.text(
+        message: message,
+        recipients: [number],
+        sendDirect: true,
+        context: context);
   }
 
   void _call(String number) async {
-    try {
-      FlutterPhoneDirectCaller.callNumber(number);
-    } catch (error) {
-      throw ("Cannot dial");
-    }
+    await Phone.call(number: number, callDirect: true, context: context);
   }
 
   @override
@@ -251,7 +244,8 @@ class _ContactAProfessionalWidgetState
                               if (number == null) {
                                 return;
                               }
-                              _sendMessage(number!, textController.text);
+                              _sendMessage(
+                                  number!, textController.text, context);
                             },
                             text: 'Text',
                             icon: const Icon(
