@@ -48,7 +48,7 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<true/>
+	<string>To share location in case of emergencies</string>
 	<key>NSContactsUsageDescription</key>
 	<string>For emergency contacts</string>
 	<key>NSCameraUsageDescription</key>
@@ -57,5 +57,9 @@
 	<string>To capture record</string>
 	<key>NSMotionUsageDescription</key>
 	<string>To capture physical activity</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>To capture record</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To capture record</string>
 </dict>
 </plist>
